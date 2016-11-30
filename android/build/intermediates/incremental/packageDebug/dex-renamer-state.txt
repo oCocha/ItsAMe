@@ -1,4 +1,4 @@
-#Sat Nov 26 00:07:49 CET 2016
-base.0=/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+#Wed Nov 30 19:06:07 CET 2016
+base.0=C\:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
+file.0=C\:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

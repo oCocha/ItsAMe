@@ -1,0 +1,19 @@
+atlas.png
+size: 82, 45
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blue
+  rotate: false
+  xy: 0, 0
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1
+gold
+  rotate: false
+  xy: 41, 0
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1

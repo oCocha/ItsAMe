@@ -37,7 +37,7 @@ public class Runner extends GameActor {
 
     private Body runnerBody;
 
-    public Runner(Body body, TiledMapTileLayer collisionLayer){
+    public Runner(Body body/*, TiledMapTileLayer collisionLayer*/){
 
         super(body);
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
@@ -53,29 +53,25 @@ public class Runner extends GameActor {
         hitTexture = textureAtlas.findRegion(Constants.RUNNER_HIT_REGION_NAME);
 
         velocity = new Vector2();
-        this.collisionLayer = collisionLayer;
-        tileHeight = collisionLayer.getTileHeight();
-        tileWidth = collisionLayer.getTileWidth();
+        //this.collisionLayer = collisionLayer;
+        //tileHeight = collisionLayer.getTileHeight();
+        //tileWidth = collisionLayer.getTileWidth();
 
         runnerBody = body;
-    }
-
-    public void printCoor(){
-        System.out.print("ScreenRectX: " + screenRectangle.x + " bodyX: " + body.getPosition().x+" /n   ");
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha){
         super.draw(batch, parentAlpha);
         if(dodging){
-            batch.draw(dodgingTexture, screenRectangle.x, screenRectangle.y + screenRectangle.height / 4, facingLeft ? -screenRectangle.width : screenRectangle.width, screenRectangle.height * 3 / 4);
+            batch.draw(dodgingTexture, screenRectangle.x, screenRectangle.y + screenRectangle.height / 4, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 6 / 4);
         }else if(hit){
             batch.draw(hitTexture, screenRectangle.x, screenRectangle.y, facingLeft ? -screenRectangle.width * 0.5f : screenRectangle.width * 0.5f, screenRectangle.height * 0.5f, screenRectangle.width, screenRectangle.height, 1f, 1f, (float)Math.toDegrees(body.getAngle()));
         }else if(jumping){
-            batch.draw(jumpingTexture, screenRectangle.x, screenRectangle.y, facingLeft ? -screenRectangle.width : screenRectangle.width, screenRectangle.height);
+            batch.draw(jumpingTexture, facingLeft ? screenRectangle.x + screenRectangle.width : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
         }else{
             stateTime += Gdx.graphics.getDeltaTime();
-            batch.draw(runningAnimation.getKeyFrame(stateTime, true), screenRectangle.x, screenRectangle.y, facingLeft ? -screenRectangle.getWidth() : screenRectangle.getWidth(), screenRectangle.getHeight());
+            batch.draw(runningAnimation.getKeyFrame(stateTime, true), facingLeft ? screenRectangle.x + screenRectangle.width : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
         }
     }
 
@@ -111,41 +107,54 @@ public class Runner extends GameActor {
         dodging = false;
         if (!hit) {
             body.setTransform(body.getPosition(), 0f);
-        }    }
+        }
+    }
 
     public boolean isDodging(){
         return dodging;
     }
 
     public void hit(){
-        body.applyAngularImpulse(getUserData().getHitAngularImpulse(), true);
-        hit = true;
-        GameScreen.restartGame();
+        //body.applyAngularImpulse(getUserData().getHitAngularImpulse(), true);
+        //hit = true;
+        //GameScreen.restartGame();
     }
 
     public boolean isHit(){
         return hit;
     }
 
+    /** Accelerate the player in right direction if he hasnt reached max speed already and set the facing direction*/
     public void moveRight() {
         if(!hit){
             facingLeft = false;
-            /*KANN RAUSvelocity = body.getLinearVelocity();
-            velocity.set(5, velocity.y);
+            velocity = body.getLinearVelocity();
+            if(velocity.x < (Constants.RUNNER_SPEED_MAX - Constants.RUNNER_SPEED_STEP)){
+                velocity.set(velocity.x + Constants.RUNNER_SPEED_STEP, velocity.y);
+            }else{
+                velocity.set(Constants.RUNNER_SPEED_MAX, velocity.y);
+            }
             body.setLinearVelocity(velocity);
-            KANN RAUS*/
-            body.applyLinearImpulse(getUserData().getMoveRightLinearImpulse(), body.getWorldCenter(), true);
+
+            //ALTERNATIVE
+            //body.applyLinearImpulse(getUserData().getMoveRightLinearImpulse(), body.getWorldCenter(), true);
         }
     }
 
+    /** Accelerate the player in right direction  if he hasnt reached max speed already and set the facing direction*/
     public void moveLeft() {
         if(!hit){
             facingLeft = true;
-            /*KANN RAUSvelocity = body.getLinearVelocity();
-            velocity.set(-5, velocity.y);
+            velocity = body.getLinearVelocity();
+            if(velocity.x > (-Constants.RUNNER_SPEED_MAX + Constants.RUNNER_SPEED_STEP)){
+                velocity.set(velocity.x - Constants.RUNNER_SPEED_STEP, velocity.y);
+            }else{
+                velocity.set(-Constants.RUNNER_SPEED_MAX, velocity.y);
+            }
             body.setLinearVelocity(velocity);
-            KANN RAUS*/
-            body.applyLinearImpulse(getUserData().getMoveLeftLinearImpulse(), body.getWorldCenter(), true);
+
+            //ALTERNATIVE
+            //body.applyLinearImpulse(getUserData().getMoveLeftLinearImpulse(), body.getWorldCenter(), true);
         }
     }
 

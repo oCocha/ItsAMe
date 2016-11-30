@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/home/bob/Android/libGDX/Mario_PvE/C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "/home/bob/Android/libGDX/Mario_PvE/C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\res\\values\\strings.xml",
+                    "file": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -31,7 +31,7 @@
                     "endOffset": 557
                 },
                 "from": {
-                    "file": "/home/bob/Android/libGDX/Mario_PvE/C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\res\\values\\styles.xml",
+                    "file": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -45,7 +45,7 @@
         ]
     },
     {
-        "outputFile": "/home/bob/Android/libGDX/Mario_PvE/C:\\Android\\Projekte\\Mario_PvE\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -56,7 +56,52 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "/home/bob/Android/libGDX/Mario_PvE/C:\\Android\\Projekte\\Mario_PvE\\android\\res\\values\\strings.xml",
+                    "file": "C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 43,
+                        "endOffset": 98
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 99,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 557
+                },
+                "from": {
+                    "file": "C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 19,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 484
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\C:\\Android\\Projekte\\Mario_PvE\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 43,
+                    "endOffset": 94
+                },
+                "from": {
+                    "file": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\C:\\Android\\Projekte\\Mario_PvE\\android\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -76,7 +121,7 @@
                     "endOffset": 557
                 },
                 "from": {
-                    "file": "/home/bob/Android/libGDX/Mario_PvE/C:\\Android\\Projekte\\Mario_PvE\\android\\res\\values\\styles.xml",
+                    "file": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\C:\\Android\\Projekte\\Mario_PvE\\android\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -90,7 +135,7 @@
         ]
     },
     {
-        "outputFile": "/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+        "outputFile": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -101,7 +146,7 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "/home/bob/Android/libGDX/Mario_PvE/android/res/values/strings.xml",
+                    "file": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -121,7 +166,7 @@
                     "endOffset": 557
                 },
                 "from": {
-                    "file": "/home/bob/Android/libGDX/Mario_PvE/android/res/values/styles.xml",
+                    "file": "C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\C:\\home\\bob\\Android\\libGDX\\Mario_PvE\\android\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

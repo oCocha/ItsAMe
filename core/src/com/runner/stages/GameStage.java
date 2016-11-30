@@ -48,7 +48,6 @@ public class GameStage extends Stage implements ContactListener {
     private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGTH / 32;
 
     private World world;
-    private Ground ground;
     private Runner runner;
 
     private final float TIME_STEP = 1 / 300f;
@@ -74,19 +73,17 @@ public class GameStage extends Stage implements ContactListener {
     private Box2DDebugRenderer debugRenderer;
 
     public GameStage(){
-        super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH /*/ Constants.WORLD_TO_SCREEN*/, VIEWPORT_HEIGHT /*/ Constants.WORLD_TO_SCREEN*/,
-                new OrthographicCamera(VIEWPORT_WIDTH /*/ Constants.WORLD_TO_SCREEN*/, VIEWPORT_HEIGHT /*/ Constants.WORLD_TO_SCREEN*/)));
+        super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         setupCamera();
         setupWorld();
-        setupTouchControlAreas();
     }
 
     private void setupTouchControlAreas() {
         touchPoint = new Vector3();
-        screenLeftButton = new Rectangle(0, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
-        screenRightButton = new Rectangle((getCamera().viewportWidth / 3) * 2, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
-        screenTopButton = new Rectangle(getCamera().viewportWidth / 3, (getCamera().viewportHeight / 3) * 2, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
-        screenBotButton = new Rectangle(getCamera().viewportWidth / 3, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
+        screenLeftButton = new Rectangle(runner.getPosition().x - getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
+        screenRightButton = new Rectangle(runner.getPosition().x + (getCamera().viewportWidth / 6), 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
+        screenTopButton = new Rectangle(runner.getPosition().x - (getCamera().viewportWidth / 6), (getCamera().viewportHeight / 3) * 2, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
+        screenBotButton = new Rectangle(runner.getPosition().x - (getCamera().viewportWidth / 6), 0, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -95,8 +92,7 @@ public class GameStage extends Stage implements ContactListener {
         world.setContactListener(this);
         setupShapeRenderer();
         setupMap();
-        //setupBackGround();
-        //setUpGround();
+        setupBackGround();
         setUpRunner();
         //createEnemy();
     }
@@ -110,7 +106,7 @@ public class GameStage extends Stage implements ContactListener {
 
     private void setupMap() {
         map = new TmxMapLoader().load("map/level1.tmx");
-        //renderer = new OrthogonalTiledMapRenderer(map, 1 / Constants.WORLD_TO_SCREEN);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / Constants.WORLD_TO_SCREEN);
         collisionLayer = (TiledMapTileLayer)map.getLayers().get("walls");
         _createBox2DObjects();
     }
@@ -144,8 +140,8 @@ public class GameStage extends Stage implements ContactListener {
                 FixtureDef fDef = new FixtureDef();
                 fDef.friction = 0;
                 fDef.shape = cs;
-                fDef.filter.categoryBits = 4;
-                fDef.filter.maskBits = 2;
+                fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
+                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS;
                 fDef.isSensor = false;
                 Body body = world.createBody(bDef);
                 body.setUserData(new GroundUserData(tileSize, tileSize));
@@ -163,18 +159,13 @@ public class GameStage extends Stage implements ContactListener {
         addActor(enemy);
     }
 
-    private void setUpGround() {
-        ground = new Ground(WorldUtils.createGround(world));
-        addActor(ground);
-    }
-
     private void setUpRunner() {
-        runner = new Runner(WorldUtils.createRunner(world), collisionLayer);
+        runner = new Runner(WorldUtils.createRunner(world)/*, collisionLayer*/);
         addActor(runner);
     }
 
     private void setupCamera() {
-        camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+        camera = (OrthographicCamera) getViewport().getCamera();
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0.0f);
         camera.update();
     }
@@ -182,13 +173,6 @@ public class GameStage extends Stage implements ContactListener {
     @Override
     public void act(float delta) {
         super.act(delta);
-
-        Array<Body> bodies = new Array<Body>(world.getBodyCount());
-        world.getBodies(bodies);
-
-        for (Body body : bodies) {
-            update(body);
-        }
 
         // Fixed timestep
         accumulator += delta;
@@ -198,32 +182,26 @@ public class GameStage extends Stage implements ContactListener {
             accumulator -= TIME_STEP;
         }
 
-        camera.position.set(VIEWPORT_WIDTH / 2 +10/*+ (runner.getPosition().x / Constants.WORLD_TO_SCREEN)*/ - (Constants.APP_WIDTH / 2) / Constants.WORLD_TO_SCREEN, VIEWPORT_HEIGHT / 2, 0.0f);
-        //camera.position.set(VIEWPORT_WIDTH / 2 + (runner.getPosition().x) - (Constants.APP_WIDTH / 2) / Constants.WORLD_TO_SCREEN, VIEWPORT_HEIGHT / 2, 0.0f);
+        camera.position.set((runner.getPosition().x) , VIEWPORT_HEIGHT / 2, 0.0f);
         camera.update();
 
-        //renderer.setView(camera);
-        //renderer.render();
+        renderer.setView(camera);
+        renderer.render();
 
+        //Update the controls and render them
+        setupTouchControlAreas();
         renderButtons();
-
-        //DEBUG
-        //renderBodyShapes(bodies);
 
         debugRenderer.render(world, camera.combined);
 
-        //TODO: Implement interpolation
-    }
+        Array<Body> bodies = new Array<Body>(world.getBodyCount());
+        world.getBodies(bodies);
 
-    private void renderBodyShapes(Array<Body> bodies) {
-        for(Body body : bodies){
-            //Draw the Body for testing
-            shapeRenderer.setProjectionMatrix(camera.combined);
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(new Color(1, 0, 0, 1));
-            shapeRenderer.rect(body.getPosition().x * Constants.WORLD_TO_SCREEN, body.getPosition().y * Constants.WORLD_TO_SCREEN, tileSize , tileSize );
-            shapeRenderer.end();
+        for (Body body : bodies) {
+            update(body);
         }
+
+        //TODO: Implement interpolation
     }
 
     private void renderButtons() {
@@ -234,16 +212,16 @@ public class GameStage extends Stage implements ContactListener {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0, 1, 0, 0.2f));
         //Draw the leftSideButton
-        shapeRenderer.rect(0, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
-        shapeRenderer.setColor(new Color(0, 0, 0, 0.2f));
+        shapeRenderer.rect(runner.getPosition().x - getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
+        shapeRenderer.setColor(new Color(1, 1, 1, 0.2f));
         //Draw the rightSideButton
-        shapeRenderer.rect((getCamera().viewportWidth / 3) * 2, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
+        shapeRenderer.rect(runner.getPosition().x + (getCamera().viewportWidth / 6), 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
         shapeRenderer.setColor(new Color(1, 0, 0, 0.2f));
         //Draw the topSideButton
-        shapeRenderer.rect(getCamera().viewportWidth / 3, (getCamera().viewportHeight / 3) * 2, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
+        shapeRenderer.rect(runner.getPosition().x - (getCamera().viewportWidth / 6), (getCamera().viewportHeight / 3) * 2, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
         shapeRenderer.setColor(new Color(0, 0, 1, 0.2f));
         //Draw the botSideButton
-        shapeRenderer.rect(getCamera().viewportWidth / 3, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
+        shapeRenderer.rect(runner.getPosition().x - (getCamera().viewportWidth / 6), 0, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
@@ -265,9 +243,6 @@ public class GameStage extends Stage implements ContactListener {
     @Override
     public boolean touchDown(int x, int y, int pointer, int button){
         _translateScreenToWorldCoordinates(x, y);
-
-        System.out.print("x: " + touchPoint.x);
-        runner.printCoor();
 
         if(_rightSideTouched(touchPoint.x, touchPoint.y)){
             runner.moveRight();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.runner.utils.Constants;
 
 /**
  * Created by bob on 22.11.16.
@@ -24,7 +25,7 @@ public class GameOverScreen extends AbstractScreen{
 
     @Override
     public void show(){
-        gameover = new TextureRegion(new Texture(Gdx.files.internal("gameover.png")), 0, 0, 480,320);
+        gameover = new TextureRegion(new Texture(Gdx.files.internal(Constants.GAMEOVER_IMAGE_PATH)), 0, 0, 480,320);
         batch = new SpriteBatch();
         batch.getProjectionMatrix().setToOrtho2D(0, 0, gameover.getRegionWidth(), gameover.getRegionHeight());
     }

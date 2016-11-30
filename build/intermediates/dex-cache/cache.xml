@@ -3,48 +3,48 @@
 
     <item
         is-multidex="false"
-        jar="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="64642d6a9ab1d7e0d48a88ffa9ab35d71c3c04e4">
-        <dex dex="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/pre-dexed/debug/instant-run-bootstrap_8f30b263e09bd2005303a362a3d8c48e756c0ee6.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="d7be001a75546e6f85bcf1bbbb9b3efac2457acf">
-        <dex dex="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/pre-dexed/debug/instant-run_68490be622c8b68b2d9de8c3a2e7b6da3c72d261.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/bob/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.4/4b4b7962d1bc75af0438f5c81ec1010557bc9ee5/gdx-1.9.4.jar"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.4\4b4b7962d1bc75af0438f5c81ec1010557bc9ee5\gdx-1.9.4.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="4b4b7962d1bc75af0438f5c81ec1010557bc9ee5">
-        <dex dex="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/pre-dexed/debug/gdx-1.9.4_e5b86410decca0beebddf68ba2c0e09da6322f74.jar" />
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-1.9.4_01848c9716d764b239e7138b50c69defff1f28b5.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/bob/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.9.4/98a0d25c9f0637fecac6e4aacf7287aa635964f5/gdx-box2d-1.9.4.jar"
+        jar="C:\Android\Projekte\ItsAMe\android\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="98a0d25c9f0637fecac6e4aacf7287aa635964f5">
-        <dex dex="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/pre-dexed/debug/gdx-box2d-1.9.4_c76602ac9ecfebf143d2c7b218bc8530a0fb208c.jar" />
+        sha1="458eb6fa01c2da77efc4093b147ad071c2feecce">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\instant-run-bootstrap_9c55c43cddb42702756631b145d4fa70f519b8ea.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/home/bob/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-android/1.9.4/194b33382d6d58fad031521ba3331d926c476c9b/gdx-backend-android-1.9.4.jar"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.4\194b33382d6d58fad031521ba3331d926c476c9b\gdx-backend-android-1.9.4.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="194b33382d6d58fad031521ba3331d926c476c9b">
-        <dex dex="/home/bob/Android/libGDX/Mario_PvE/android/build/intermediates/pre-dexed/debug/gdx-backend-android-1.9.4_d956234d06a035fabe0ed7de9f332881ca9041d6.jar" />
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.4_99689bd7d2ae696e5daa81a17244bbccdfe88227.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.9.4\98a0d25c9f0637fecac6e4aacf7287aa635964f5\gdx-box2d-1.9.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98a0d25c9f0637fecac6e4aacf7287aa635964f5">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-box2d-1.9.4_1bbdb294782977996c176244e6316848cf6aa4bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\Projekte\ItsAMe\android\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e13c12ec899505100e6b73cf3f651ced0d906a9a">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\instant-run_9416704695c1c9975c40ba657f8e85a769d81981.jar" />
     </item>
 
 </items>

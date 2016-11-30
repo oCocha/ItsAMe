@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.runner.utils.Constants;
 
 /**
  * Created by bob on 22.11.16.
@@ -24,7 +25,7 @@ public class IntroScreen extends AbstractScreen{
 
     @Override
     public void show(){
-        intro = new TextureRegion(new Texture(Gdx.files.internal("intro.png")), 0, 0, 480,320);
+        intro = new TextureRegion(new Texture(Gdx.files.internal(Constants.INTRO_IMAGE_PATH)), 0, 0, 480,320);
         batch = new SpriteBatch();
         batch.getProjectionMatrix().setToOrtho2D(0, 0, intro.getRegionWidth(), intro.getRegionHeight());
     }

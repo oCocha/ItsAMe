@@ -58,8 +58,8 @@ public class WorldUtils {
         FixtureDef fDef = new FixtureDef();
         fDef.friction = 0;
         fDef.shape = shape;
-        fDef.filter.categoryBits = 2;
-        fDef.filter.maskBits = 4;
+        fDef.filter.categoryBits = Constants.COLLISION_PLAYER_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS;
         fDef.isSensor = false;
 
         Body body = world.createBody(bodyDef);
@@ -80,8 +80,16 @@ public class WorldUtils {
         bodyDef.position.set(new Vector2(enemyType.getX(), enemyType.getY()));
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(enemyType.getWidth() / 2, enemyType.getHeight() / 2);
+
+        FixtureDef fDef = new FixtureDef();
+        fDef.friction = 0;
+        fDef.shape = shape;
+        fDef.filter.categoryBits = Constants.COLLISION_ENEMY_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS;
+        fDef.isSensor = false;
+
         Body body = world.createBody(bodyDef);
-        body.createFixture(shape, enemyType.getDensity());
+        body.createFixture(fDef);
         body.resetMassData();
         EnemyUserData userData = new EnemyUserData(enemyType.getWidth(), enemyType.getHeight(), enemyType.getRegions());
         body.setUserData(userData);
