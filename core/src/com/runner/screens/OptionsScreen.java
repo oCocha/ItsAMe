@@ -2,12 +2,10 @@ package com.runner.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,16 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.runner.Runner;
 import com.runner.utils.Constants;
 
 /**
  * Created by bob on 22.11.16.
  */
 
-public class MainMenu extends AbstractScreen {
+public class OptionsScreen extends AbstractScreen {
 
     final Game game;
     protected Stage stage;
@@ -42,7 +38,7 @@ public class MainMenu extends AbstractScreen {
     OrthographicCamera camera;
     float time = 0;
 
-    public MainMenu(Game game){
+    public OptionsScreen(Game game){
         super(game);
         this.game = game;
 
@@ -79,21 +75,15 @@ public class MainMenu extends AbstractScreen {
         mainTable.top();
 
         //Create buttons
-        TextButton playButton = new TextButton("Play", skin);
-        TextButton optionsButton = new TextButton("Options", skin);
+        TextButton soundButton = new TextButton("Sound", skin);
+        TextButton backButton = new TextButton("Back", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
-        playButton.addListener(new ClickListener(){
+        backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new IntroScreen(game));
-            }
-        });
-        optionsButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new OptionsScreen(game));
+                game.setScreen(new MainMenu(game));
             }
         });
         exitButton.addListener(new ClickListener(){
@@ -104,9 +94,9 @@ public class MainMenu extends AbstractScreen {
         });
 
         //Add buttons to table
-        mainTable.add(playButton);
+        mainTable.add(soundButton);
         mainTable.row();
-        mainTable.add(optionsButton);
+        mainTable.add(backButton);
         mainTable.row();
         mainTable.add(exitButton);
 

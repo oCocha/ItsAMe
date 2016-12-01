@@ -1,6 +1,6 @@
 {
     com.badlogic.gdx.graphics.g2d.BitmapFont: {
-        default: { file: fonts/teen.ttf }
+        default: { file: fonts/default.fnt }
     },
     com.badlogic.gdx.graphics.Color: {
         white: { a: 1, r: 1, g: 1, b: 1 }

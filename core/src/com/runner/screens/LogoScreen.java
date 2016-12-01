@@ -4,9 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.runner.utils.Constants;
 
 /**
@@ -15,24 +18,38 @@ import com.runner.utils.Constants;
 
 public class LogoScreen extends AbstractScreen {
 
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
     TextureRegion title;
     SpriteBatch batch;
     float time = 0;
 
     public LogoScreen(Game game){
         super(game);
+        title = new TextureRegion(new Texture(Gdx.files.internal(Constants.LOGO_IMAGE_PATH)));
+        batch = new SpriteBatch();
+        //batch.getProjectionMatrix().setToOrtho2D(0, 0, title.getRegionWidth(), title.getRegionHeight());
+
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGTH, camera);
+        viewport.apply();
+
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
     }
 
     @Override
     public void show(){
-        title = new TextureRegion(new Texture(Gdx.files.internal(Constants.LOGO_IMAGE_PATH)));
-        batch = new SpriteBatch();
-        batch.getProjectionMatrix().setToOrtho2D(0, 0, title.getRegionWidth(), title.getRegionHeight());
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+
         batch.begin();
         batch.draw(title, 0, 0);
         batch.end();
@@ -43,6 +60,13 @@ public class LogoScreen extends AbstractScreen {
                 game.setScreen(new MainMenu(game));
             }
         }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
     }
 
     @Override
