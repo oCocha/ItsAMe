@@ -162,4 +162,15 @@ public class Runner extends GameActor {
         setPosition(new Vector2(Constants.RUNNER_X / Constants.WORLD_TO_SCREEN, Constants.RUNNER_Y / Constants.WORLD_TO_SCREEN));
         resetVelocity();
     }
+
+    public void move(float knobPercentX, float knobPercentY) {
+        System.out.print("MOVE: "+knobPercentX+" : "+knobPercentY+" --- ");
+        velocity = body.getLinearVelocity();
+        if(velocity.x > (-Constants.RUNNER_SPEED_MAX)|| velocity.x < (Constants.RUNNER_SPEED_MAX)){
+            velocity.set(velocity.x + knobPercentX * Constants.RUNNER_SPEED_STEP, velocity.y);
+        }else{
+            velocity.set(-Constants.RUNNER_SPEED_MAX, velocity.y);
+        }
+        body.setLinearVelocity(velocity);
+    }
 }

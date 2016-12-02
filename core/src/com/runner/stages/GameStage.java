@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -25,12 +26,14 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.runner.actors.Background;
 import com.runner.actors.Enemy;
-import com.runner.actors.Ground;
 import com.runner.actors.Runner;
 import com.runner.box2d.GroundUserData;
 import com.runner.screens.GameScreen;
@@ -55,10 +58,16 @@ public class GameStage extends Stage implements ContactListener {
 
     private OrthographicCamera camera;
 
+    //Controls
     private Rectangle screenRightButton;
     private Rectangle screenLeftButton;
     private Rectangle screenTopButton;
     private Rectangle screenBotButton;
+    private Touchpad touchpad;
+    private Skin touchpadSkin;
+    private Touchpad.TouchpadStyle touchpadStyle;
+    private Drawable touchBackground;
+    private Drawable touchKnob;
 
     private Vector3 touchPoint;
 
@@ -80,10 +89,15 @@ public class GameStage extends Stage implements ContactListener {
 
     private void setupTouchControlAreas() {
         touchPoint = new Vector3();
+
         screenLeftButton = new Rectangle(runner.getPosition().x - getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
         screenRightButton = new Rectangle(runner.getPosition().x + (getCamera().viewportWidth / 6), 0, getCamera().viewportWidth / 3, getCamera().viewportHeight);
         screenTopButton = new Rectangle(runner.getPosition().x - (getCamera().viewportWidth / 6), (getCamera().viewportHeight / 3) * 2, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
         screenBotButton = new Rectangle(runner.getPosition().x - (getCamera().viewportWidth / 6), 0, getCamera().viewportWidth / 3, getCamera().viewportHeight / 3);
+
+        touchpad.setBounds(runner.getPosition().x - Constants.UI_TOUCHPAD_X, Constants.UI_TOUCHPAD_Y / Constants.WORLD_TO_SCREEN, Constants.UI_TOUCHPAD_X_ / Constants.WORLD_TO_SCREEN, Constants.UI_TOUCHPAD_Y_ / Constants.WORLD_TO_SCREEN);
+        addActor(touchpad);
+
         Gdx.input.setInputProcessor(this);
     }
 
@@ -94,7 +108,21 @@ public class GameStage extends Stage implements ContactListener {
         setupMap();
         setupBackGround();
         setUpRunner();
-        //createEnemy();
+        setupUI();
+        createEnemy(Constants.ENEMY_X);
+    }
+
+    private void setupUI() {
+        //Setup the touchpad joystick to move the player
+        touchpadSkin = new Skin();
+        touchpadSkin.add("touchBackground", new Texture(Constants.UI_TOUCHPAD_BACKGROUND_PATH));
+        touchpadSkin.add("touchKnob", new Texture(Constants.UI_TOUCHPAD_KNOB_PATH));
+        touchpadStyle = new Touchpad.TouchpadStyle();
+        touchBackground = touchpadSkin.getDrawable("touchBackground");
+        touchKnob = touchpadSkin.getDrawable("touchKnob");
+        touchpadStyle.background = touchBackground;
+        touchpadStyle.knob = touchKnob;
+        touchpad = new Touchpad(Constants.UI_TOUCHPAD_INTENSITY / Constants.WORLD_TO_SCREEN, touchpadStyle);
     }
 
     private void setupShapeRenderer() {
@@ -141,7 +169,7 @@ public class GameStage extends Stage implements ContactListener {
                 fDef.friction = 0;
                 fDef.shape = cs;
                 fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
-                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS;
+                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS;
                 fDef.isSensor = false;
                 Body body = world.createBody(bDef);
                 body.setUserData(new GroundUserData(tileSize, tileSize));
@@ -154,8 +182,8 @@ public class GameStage extends Stage implements ContactListener {
         addActor(new Background());
     }
 
-    private void createEnemy() {
-        Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
+    private void createEnemy(float enemySpawnX) {
+        Enemy enemy = new Enemy(WorldUtils.createEnemy(world, enemySpawnX));
         addActor(enemy);
     }
 
@@ -182,15 +210,19 @@ public class GameStage extends Stage implements ContactListener {
             accumulator -= TIME_STEP;
         }
 
+        //Update the controls and render them
+        setupTouchControlAreas();
+        renderButtons();
+
+        if (touchpad.isTouched())
+            //playerPosition.add(touchpad.getKnobPercentX() * playerSpeed, touchpad.getKnobPercentY() * playerSpeed);
+            runner.move(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
+
         camera.position.set((runner.getPosition().x) , VIEWPORT_HEIGHT / 2, 0.0f);
         camera.update();
 
         renderer.setView(camera);
         renderer.render();
-
-        //Update the controls and render them
-        setupTouchControlAreas();
-        renderButtons();
 
         debugRenderer.render(world, camera.combined);
 
@@ -228,9 +260,9 @@ public class GameStage extends Stage implements ContactListener {
 
 
     private void update(Body body) {
-        if(!BodyUtils.bodyInBounds(body)){
+        if(!BodyUtils.bodyInBounds(body, runner.getPosition().x - camera.viewportWidth / 2)){
             if(BodyUtils.bodyIsEnemy(body) && !runner.isHit()){
-                createEnemy();
+                createEnemy(runner.getPosition().x + camera.viewportWidth / 2);
             }
             if(BodyUtils.bodyIsRunner(body) && !runner.isHit()){
                 GameScreen.restartGame();
@@ -243,7 +275,7 @@ public class GameStage extends Stage implements ContactListener {
     @Override
     public boolean touchDown(int x, int y, int pointer, int button){
         _translateScreenToWorldCoordinates(x, y);
-
+        /*
         if(_rightSideTouched(touchPoint.x, touchPoint.y)){
             runner.moveRight();
         }else if(_leftSideTouched(touchPoint.x, touchPoint.y)){
@@ -251,7 +283,8 @@ public class GameStage extends Stage implements ContactListener {
         }else if(_botSideTouched(touchPoint.x, touchPoint.y)){
             runner.dodge();
             runner.respawn();
-        }else if(_topSideTouched(touchPoint.x, touchPoint.y)){
+
+        }else */if(_topSideTouched(touchPoint.x, touchPoint.y)){
             runner.jump();
         }
         return super.touchDown(x, y, pointer, button);
@@ -318,8 +351,9 @@ public class GameStage extends Stage implements ContactListener {
     @Override
     public void dispose(){
         map.dispose();
-        //renderer.dispose();
+        renderer.dispose();
         debugRenderer.dispose();
+        touchpadSkin.dispose();
     }
     //MAP TEST
 

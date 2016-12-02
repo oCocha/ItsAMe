@@ -10,14 +10,14 @@ import com.runner.enums.UserDataType;
 
 public class BodyUtils {
 
-    public static boolean bodyInBounds(Body body){
+    public static boolean bodyInBounds(Body body, float enemeyDespawnX){
         UserData userData = (UserData)body.getUserData();
 
         switch (userData.getUserDataType()){
             case RUNNER:
                 return body.getPosition().y > 0;
             case ENEMY:
-                return body.getPosition().x + userData.getWidth() / 2 > 0;
+                return body.getPosition().x + userData.getWidth() / 2 > enemeyDespawnX;
         }
         return true;
     }

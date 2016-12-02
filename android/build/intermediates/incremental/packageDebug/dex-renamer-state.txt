@@ -1,4 +1,4 @@
-#Wed Nov 30 19:06:07 CET 2016
+#Fri Dec 02 15:11:16 CET 2016
 base.0=C\:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
 file.0=C\:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

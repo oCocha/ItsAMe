@@ -73,11 +73,11 @@ public class WorldUtils {
 
     }
 
-    public static Body createEnemy(World world){
+    public static Body createEnemy(World world, float spawnX){
         EnemyType enemyType = RandomUtils.getRandomEnemyType();
         BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.position.set(new Vector2(enemyType.getX(), enemyType.getY()));
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(new Vector2(spawnX, enemyType.getY()));
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(enemyType.getWidth() / 2, enemyType.getHeight() / 2);
 
@@ -85,10 +85,11 @@ public class WorldUtils {
         fDef.friction = 0;
         fDef.shape = shape;
         fDef.filter.categoryBits = Constants.COLLISION_ENEMY_BITS;
-        fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_WALL_BITS;
         fDef.isSensor = false;
 
         Body body = world.createBody(bodyDef);
+        body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE);
         body.createFixture(fDef);
         body.resetMassData();
         EnemyUserData userData = new EnemyUserData(enemyType.getWidth(), enemyType.getHeight(), enemyType.getRegions());
