@@ -5,32 +5,32 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.2"
-    timestamp="19545797101607"
+    timestamp="27761661860753"
     token="-6640231575385194500"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="257" />
+        duration="162" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="44" />
+        duration="12" />
     <task
         name="verifier"
-        duration="21" />
+        duration="0" />
 
     <artifact
-        location="C:\Android\Projekte\ItsAMe\android\build\outputs\apk\android-debug.apk"
+        location="/home/bob/Android/libGDX/ItsAMe/android/build/outputs/apk/android-debug.apk"
         type="MAIN" />
 
     <build
         timestamp="75683263027355"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="C:\home\bob\Android\libGDX\Mario_PvE\C:\home\bob\Android\libGDX\Mario_PvE\android\build\outputs\apk\android-debug.apk"
+            location="/home/bob/Android/libGDX/ItsAMe/C:\home\bob\Android\libGDX\Mario_PvE\C:\home\bob\Android\libGDX\Mario_PvE\android\build\outputs\apk\android-debug.apk"
             type="MAIN" />
     </build>
 

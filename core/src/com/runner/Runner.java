@@ -14,6 +14,6 @@ public class Runner extends Game {
 	
 	@Override
 	public void create () {
-        setScreen(new LogoScreen(this));
+        setScreen(new GameScreen(this));
 	}
 }

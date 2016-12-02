@@ -31,10 +31,6 @@ public class Runner extends GameActor {
 
     private Vector2 velocity;
 
-    private TiledMapTileLayer collisionLayer;
-    private float tileWidth, tileHeight, oldX, oldY;
-    private boolean collisionX, collisionY;
-
     private Body runnerBody;
 
     public Runner(Body body/*, TiledMapTileLayer collisionLayer*/){
@@ -53,9 +49,6 @@ public class Runner extends GameActor {
         hitTexture = textureAtlas.findRegion(Constants.RUNNER_HIT_REGION_NAME);
 
         velocity = new Vector2();
-        //this.collisionLayer = collisionLayer;
-        //tileHeight = collisionLayer.getTileHeight();
-        //tileWidth = collisionLayer.getTileWidth();
 
         runnerBody = body;
     }
@@ -78,6 +71,13 @@ public class Runner extends GameActor {
     @Override
     public void act(float delta){
         super.act(delta);
+        update();
+    }
+
+    private void update() {
+        velocity = body.getLinearVelocity();
+        velocity.x *= Constants.PLAYER_STAMP;
+        body.setLinearVelocity(velocity);
     }
 
     @Override
@@ -124,53 +124,29 @@ public class Runner extends GameActor {
         return hit;
     }
 
-    /** Accelerate the player in right direction if he hasnt reached max speed already and set the facing direction*/
-    public void moveRight() {
-        if(!hit){
-            facingLeft = false;
-            velocity = body.getLinearVelocity();
-            if(velocity.x < (Constants.RUNNER_SPEED_MAX - Constants.RUNNER_SPEED_STEP)){
-                velocity.set(velocity.x + Constants.RUNNER_SPEED_STEP, velocity.y);
-            }else{
-                velocity.set(Constants.RUNNER_SPEED_MAX, velocity.y);
-            }
-            body.setLinearVelocity(velocity);
-
-            //ALTERNATIVE
-            //body.applyLinearImpulse(getUserData().getMoveRightLinearImpulse(), body.getWorldCenter(), true);
-        }
-    }
-
-    /** Accelerate the player in right direction  if he hasnt reached max speed already and set the facing direction*/
-    public void moveLeft() {
-        if(!hit){
-            facingLeft = true;
-            velocity = body.getLinearVelocity();
-            if(velocity.x > (-Constants.RUNNER_SPEED_MAX + Constants.RUNNER_SPEED_STEP)){
-                velocity.set(velocity.x - Constants.RUNNER_SPEED_STEP, velocity.y);
-            }else{
-                velocity.set(-Constants.RUNNER_SPEED_MAX, velocity.y);
-            }
-            body.setLinearVelocity(velocity);
-
-            //ALTERNATIVE
-            //body.applyLinearImpulse(getUserData().getMoveLeftLinearImpulse(), body.getWorldCenter(), true);
-        }
-    }
-
     public void respawn(){
         setPosition(new Vector2(Constants.RUNNER_X / Constants.WORLD_TO_SCREEN, Constants.RUNNER_Y / Constants.WORLD_TO_SCREEN));
         resetVelocity();
     }
 
+    /**Move the player if the joystick was moved*/
     public void move(float knobPercentX, float knobPercentY) {
-        System.out.print("MOVE: "+knobPercentX+" : "+knobPercentY+" --- ");
         velocity = body.getLinearVelocity();
-        if(velocity.x > (-Constants.RUNNER_SPEED_MAX)|| velocity.x < (Constants.RUNNER_SPEED_MAX)){
-            velocity.set(velocity.x + knobPercentX * Constants.RUNNER_SPEED_STEP, velocity.y);
-        }else{
+        /**Control max speed in right direction*/
+        if(velocity.x < (-Constants.RUNNER_SPEED_MAX)){
             velocity.set(-Constants.RUNNER_SPEED_MAX, velocity.y);
+        /**Control max speed in left direction*/
+        }else if(velocity.x > (Constants.RUNNER_SPEED_MAX)){
+            velocity.set(Constants.RUNNER_SPEED_MAX, velocity.y);
+        /**Set the player speed according to the percentage value the player moved the joystick*/
+        }else{
+            velocity.set(velocity.x + knobPercentX * Constants.RUNNER_SPEED_STEP, velocity.y);
         }
+        /**Apply the movement velocity*/
         body.setLinearVelocity(velocity);
+        /**Jump when the user moved the joystick to the top direction*/
+        if(knobPercentY > 0.5f){
+            jump();
+        }
     }
 }

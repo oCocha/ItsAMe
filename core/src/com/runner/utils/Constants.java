@@ -31,8 +31,9 @@ public class Constants {
     public static final float RUNNER_WIDTH = 10f;
     public static final float RUNNER_HEIGHT = 20f;
     public static final float RUNNER_GRAVITY_SCALE = 3f;
+    public static float PLAYER_STAMP = 0.97f;
     public static final float RUNNER_SPEED_MAX = 5f;    //The max speed of the player
-    public static final float RUNNER_SPEED_STEP = -0.5f;   //THe amount the players speed increases per button click
+    public static final float RUNNER_SPEED_STEP = 1f;   //The amount the players speed increases per button click
     public static float RUNNER_DENSITY = 0.5f;
     public static final float RUNNER_DODGE_X = 2f;
     public static final float RUNNER_DODGE_Y = 1.5f;
@@ -67,13 +68,16 @@ public class Constants {
 
     public static final String UI_ATLAS_PATH = "ui/uiatlas.txt";
     public static final String UI_SKIN_PATH = "ui/uiskin.json";
-    public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/touchBackground - Kopie.png";
-    public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnob - Kopie.png";
-    public static final float UI_TOUCHPAD_X = APP_WIDTH / WORLD_TO_SCREEN / 4;
-    public static final float UI_TOUCHPAD_Y = 50;
-    public static final float UI_TOUCHPAD_X_ = 150;
-    public static final float UI_TOUCHPAD_Y_ = 150;
-    public static final float UI_TOUCHPAD_INTENSITY = 100;   //The lower the amount the faster the joystick reacts
+    public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/touchBackground.png";
+    public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnob.png";
+    public static final float UI_TOUCHPAD_X = APP_WIDTH / 8;
+    public static final float UI_TOUCHPAD_Y = APP_HEIGTH / 3 ;
+    public static final float UI_TOUCHPAD_WIDTH = 150;
+    public static final float UI_TOUCHPAD_HEIGHT = 150;
+    public static final float UI_TOUCHPAD_INTENSITY = 120;   //The lower the value the faster the joystick reacts
+    public static final float UI_BUTTON_SHOOT_X = APP_WIDTH * 6 / 8;
+    public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 3;
+    public static final float UI_BUTTON_SHOOT_RADIUS = APP_WIDTH / 10;
 
     public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
     public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"alienGreen_run1", "alienGreen_run2"};
