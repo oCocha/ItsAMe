@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.runner.behaviour.EnemyBehaviour;
 import com.runner.box2d.EnemyUserData;
 import com.runner.utils.Constants;
 
@@ -18,6 +19,8 @@ public class Enemy extends GameActor {
     private Animation animation;
     private float stateTime;
 
+    private EnemyBehaviour enemyBehaviour;
+
     public Enemy(Body body){
 
         super(body);
@@ -29,6 +32,7 @@ public class Enemy extends GameActor {
         }
         animation = new Animation(0.1f, runningFrames);
         stateTime = 0f;
+        enemyBehaviour = new EnemyBehaviour();
     }
 
     @Override
@@ -40,6 +44,10 @@ public class Enemy extends GameActor {
     public void act(float delta){
         super.act(delta);
         body.setLinearVelocity(getUserData().getLinearVelocity());
+
+        System.out.print(body.getLinearVelocity().len()+" --- ");
+        body.setLinearVelocity(enemyBehaviour.update(body.getLinearVelocity()));
+
     }
 
     @Override
