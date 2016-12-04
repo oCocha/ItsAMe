@@ -7,5 +7,6 @@ package com.runner.enums;
 public enum UserDataType {
     GROUND,
     RUNNER,
-    ENEMY
+    ENEMY,
+    PROJECTILE
 }

@@ -10,14 +10,16 @@ import com.runner.enums.UserDataType;
 
 public class BodyUtils {
 
-    public static boolean bodyInBounds(Body body, float enemeyDespawnX){
+    public static boolean bodyInBounds(Body body, float enemyDespawnX){
         UserData userData = (UserData)body.getUserData();
 
         switch (userData.getUserDataType()){
             case RUNNER:
                 return body.getPosition().y > 0;
+            case PROJECTILE:
+                return body.getPosition().y > 0;
             case ENEMY:
-                return body.getPosition().x + userData.getWidth() / 2 > enemeyDespawnX;
+                return body.getPosition().x + userData.getWidth() / 2 > enemyDespawnX;
         }
         return true;
     }
@@ -36,5 +38,10 @@ public class BodyUtils {
     public static boolean bodyIsGround(Body body){
         UserData userData = (UserData) body.getUserData();
         return userData != null && userData.getUserDataType() == UserDataType.GROUND;
+    }
+
+    public static boolean bodyIsProjectile(Body body) {
+        UserData userData = (UserData) body.getUserData();
+        return userData != null && userData.getUserDataType() == UserDataType.PROJECTILE;
     }
 }

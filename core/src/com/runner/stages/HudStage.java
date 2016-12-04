@@ -133,6 +133,7 @@ public class HudStage extends Stage {
 
         if(_shootButtonTouched(touchPoint.x, touchPoint.y)){
             System.out.print("TOUCH");
+            GameScreen.gameStage.shoot();
         }
         return super.touchDown(x, y, pointer, button);
     }

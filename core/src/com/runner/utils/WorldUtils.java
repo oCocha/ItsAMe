@@ -8,8 +8,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.runner.box2d.EnemyUserData;
 import com.runner.box2d.GroundUserData;
+import com.runner.box2d.ProjectileUserData;
 import com.runner.box2d.RunnerUserData;
 import com.runner.enums.EnemyType;
+import com.runner.enums.ProjectileType;
 
 /**
  * Created by bob on 20.11.16.
@@ -93,6 +95,31 @@ public class WorldUtils {
         body.createFixture(fDef);
         body.resetMassData();
         EnemyUserData userData = new EnemyUserData(enemyType.getWidth(), enemyType.getHeight(), enemyType.getRegions());
+        body.setUserData(userData);
+        shape.dispose();
+        return body;
+    }
+
+    public static Body createProjectile(World world, float spawnX, float spawnY){
+        ProjectileType projectileType = RandomUtils.getRandomProjectileType();
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(new Vector2(spawnX + projectileType.getWidth(), spawnY));
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(projectileType.getWidth() / 2, projectileType.getHeight() / 2);
+
+        FixtureDef fDef = new FixtureDef();
+        fDef.friction = 0;
+        fDef.shape = shape;
+        fDef.filter.categoryBits = Constants.COLLISION_PROJECTILE_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_WALL_BITS;
+        fDef.isSensor = false;
+
+        Body body = world.createBody(bodyDef);
+        body.setGravityScale(Constants.PROJECTILE_GRAVITY_SCALE);
+        body.createFixture(fDef);
+        body.resetMassData();
+        ProjectileUserData userData = new ProjectileUserData(projectileType.getWidth(), projectileType.getHeight(), projectileType.getRegions());
         body.setUserData(userData);
         shape.dispose();
         return body;

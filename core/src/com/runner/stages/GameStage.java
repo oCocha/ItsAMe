@@ -34,8 +34,10 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.runner.actors.Background;
 import com.runner.actors.Enemy;
+import com.runner.actors.Projectile;
 import com.runner.actors.Runner;
 import com.runner.box2d.GroundUserData;
+import com.runner.box2d.ProjectileUserData;
 import com.runner.screens.GameScreen;
 import com.runner.utils.BodyUtils;
 import com.runner.utils.Constants;
@@ -80,6 +82,8 @@ public class GameStage extends Stage implements ContactListener {
     private ShapeRenderer shapeRenderer;
 
     private Box2DDebugRenderer debugRenderer;
+
+    private Array<Body> destroyList = new Array<Body>();
 
     public GameStage(){
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
@@ -140,7 +144,7 @@ public class GameStage extends Stage implements ContactListener {
                 fDef.friction = 0;
                 fDef.shape = cs;
                 fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
-                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS;
+                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_PROJECTILE_BITS;
                 fDef.isSensor = false;
                 Body body = world.createBody(bDef);
                 body.setUserData(new GroundUserData(tileSize, tileSize));
@@ -192,14 +196,31 @@ public class GameStage extends Stage implements ContactListener {
         Array<Body> bodies = new Array<Body>(world.getBodyCount());
         world.getBodies(bodies);
 
+        /**Update all bodies in the stage*/
         for (Body body : bodies) {
             update(body);
+        }
+
+        /**SOLUTION 2
+         * Destroy projectiles on ground collision
+         *
+        /**Destroy all bodies that were saved in the destroylist*/
+        if(destroyList.size != 0){
+            for(int i = 0, s = destroyList.size; i < s; i++){
+
+                /**FEHLER HIER*/
+                if(!world.isLocked()){
+                    world.destroyBody(destroyList.get(i));
+                }
+            }
         }
 
         //TODO: Implement interpolation
     }
 
+    /**Check the body for collisions and out of bounds*/
     private void update(Body body) {
+        /**Check whether the body is out of bounds*/
         if(!BodyUtils.bodyInBounds(body, runner.getPosition().x - camera.viewportWidth / 2)){
             if(BodyUtils.bodyIsEnemy(body) && !runner.isHit()){
                 createEnemy(runner.getPosition().x + camera.viewportWidth / 2);
@@ -209,25 +230,24 @@ public class GameStage extends Stage implements ContactListener {
             }else{
                 world.destroyBody(body);
             }
+            /**Destroy Projectiles when they are out of bounds
+             *
+            if(BodyUtils.bodyIsProjectile(body) && !runner.isHit()){
+                world.destroyBody(body);
+            }*/
         }
-    }
 
-    @Override
-    public boolean touchDown(int x, int y, int pointer, int button){
-        _translateScreenToWorldCoordinates(x, y);
-        /*
-        if(_rightSideTouched(touchPoint.x, touchPoint.y)){
-            runner.moveRight();
-        }else if(_leftSideTouched(touchPoint.x, touchPoint.y)){
-            runner.moveLeft();
-        }else if(_botSideTouched(touchPoint.x, touchPoint.y)){
-            runner.dodge();
-            runner.respawn();
-
-        }else */if(_topSideTouched(touchPoint.x, touchPoint.y)){
-            runner.jump();
+        /**SOLUTION 1
+         * Destroy projectiles on ground collision
+         *
+        if(BodyUtils.bodyIsProjectile(body)){
+            ProjectileUserData projectileUserData = (ProjectileUserData)body.getUserData();
+            System.out.print(projectileUserData.getDestroyed());
+            if(projectileUserData.getDestroyed() == true){
+                world.destroyBody(body);
+            }
         }
-        return super.touchDown(x, y, pointer, button);
+         */
     }
 
     @Override
@@ -243,12 +263,40 @@ public class GameStage extends Stage implements ContactListener {
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
-        if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
+        if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
                 (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
             runner.hit();
-        } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
+        }else if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
             runner.landed();
+        }else if(BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsProjectile(b)){
+            /**SOLUTION 1
+             * Destroy projectiles on ground collision
+             *
+            ProjectileUserData projectileUserData = (ProjectileUserData)b.getUserData();
+            projectileUserData.setDestroyed(true);
+            System.out.print("a");
+             */
+
+            /**SOLUTION 2
+             * Destroy projectiles on ground collision
+             *
+            destroyList.add(b);
+             */
+        }else if(BodyUtils.bodyIsGround(b) && BodyUtils.bodyIsProjectile(a)){
+            /**SOLUTION 1
+             * Destroy projectiles on ground collision
+             *
+            ProjectileUserData projectileUserData = (ProjectileUserData)a.getUserData();
+            projectileUserData.setDestroyed(true);
+            System.out.print("b");
+             */
+
+            /**SOLUTION 2
+             * Destroy projectiles on ground collision
+             *
+            destroyList.add(a);
+             */
         }
     }
 
@@ -272,33 +320,15 @@ public class GameStage extends Stage implements ContactListener {
         runner.move(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
     }
 
-    private boolean _leftSideTouched(float x, float y){
-        return screenLeftButton.contains(x, y);
+    public void shoot() {
+        Projectile projectile = new Projectile(WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN));
+        addActor(projectile);
     }
 
-    private boolean _rightSideTouched(float x, float y){
-        return screenRightButton.contains(x, y);
-    }
-
-    private boolean _topSideTouched(float x, float y){
-        return screenTopButton.contains(x, y);
-    }
-
-    private boolean _botSideTouched(float x, float y){
-        return screenBotButton.contains(x, y);
-    }
-
-    private void _translateScreenToWorldCoordinates(int x, int y){
-        getCamera().unproject(touchPoint.set(x, y, 0));
-    }
-
-    //MAP TEST
     @Override
     public void dispose(){
         map.dispose();
         renderer.dispose();
         debugRenderer.dispose();
     }
-    //MAP TEST
-
 }

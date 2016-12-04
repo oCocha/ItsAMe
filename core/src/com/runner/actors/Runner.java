@@ -134,18 +134,26 @@ public class Runner extends GameActor {
         velocity = body.getLinearVelocity();
         /**Control max speed in right direction*/
         if(velocity.x < (-Constants.RUNNER_SPEED_MAX)){
+            facingLeft = true;
             velocity.set(-Constants.RUNNER_SPEED_MAX, velocity.y);
         /**Control max speed in left direction*/
         }else if(velocity.x > (Constants.RUNNER_SPEED_MAX)){
+            facingLeft = false;
             velocity.set(Constants.RUNNER_SPEED_MAX, velocity.y);
         /**Set the player speed according to the percentage value the player moved the joystick*/
         }else{
             velocity.set(velocity.x + knobPercentX * Constants.RUNNER_SPEED_STEP, velocity.y);
         }
+        /**Change the direction the player sprite is looking at*/
+        if(velocity.x > 0){
+            facingLeft = false;
+        }else{
+            facingLeft = true;
+        }
         /**Apply the movement velocity*/
         body.setLinearVelocity(velocity);
         /**Jump when the user moved the joystick to the top direction*/
-        if(knobPercentY > 0.5f){
+        if(knobPercentY > Constants.UI_TOUCHPAD_JUMP_SENSITY){
             jump();
         }
     }

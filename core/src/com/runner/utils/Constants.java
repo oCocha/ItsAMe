@@ -19,6 +19,7 @@ public class Constants {
     public static final int COLLISION_PLAYER_BITS = 2;
     public static final int COLLISION_WALL_BITS = 4;
     public static final short COLLISION_ENEMY_BITS = 8;
+    public static final short COLLISION_PROJECTILE_BITS = 16;
 
     public static final float GROUND_X = 0;
     public static final float GROUND_Y = 0;
@@ -60,6 +61,9 @@ public class Constants {
     public static float ENEMY_JUMP_LINEAR_VELOCITY = 13f;
     public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-5f, 0);
 
+    public static final float PROJECTILE_GRAVITY_SCALE = 5f;
+    public static final Vector2 PROJECTILE_LINEAR_VELOCITY = new Vector2(1f, 0);;
+
     public static final String LOGO_IMAGE_PATH = "screens/logo.png";
     public static final String MAINMENU_IMAGE_PATH = "screens/title.png";
     public static final String INTRO_IMAGE_PATH = "screens/intro.png";
@@ -79,6 +83,7 @@ public class Constants {
     public static final float UI_BUTTON_SHOOT_X = APP_WIDTH * 6 / 8;
     public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 3;
     public static final float UI_BUTTON_SHOOT_RADIUS = APP_WIDTH / 10;
+    public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player alway jumps; 1: Player jumps only when joystick is exactly pointing to top
 
     public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
     public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"alienGreen_run1", "alienGreen_run2"};

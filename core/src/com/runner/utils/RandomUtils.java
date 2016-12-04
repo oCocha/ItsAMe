@@ -1,6 +1,8 @@
 package com.runner.utils;
 
+import com.runner.actors.Projectile;
 import com.runner.enums.EnemyType;
+import com.runner.enums.ProjectileType;
 
 import java.util.Random;
 
@@ -12,6 +14,11 @@ public class RandomUtils {
 
     public static EnemyType getRandomEnemyType(){
         RandomEnum<EnemyType> randomEnum = new RandomEnum<EnemyType>(EnemyType.class);
+        return randomEnum.random();
+    }
+
+    public static ProjectileType getRandomProjectileType(){
+        RandomEnum<ProjectileType> randomEnum = new RandomEnum<ProjectileType>(ProjectileType.class);
         return randomEnum.random();
     }
 

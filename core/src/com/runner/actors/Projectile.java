@@ -6,24 +6,22 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.runner.behaviour.EnemyBehaviour;
-import com.runner.box2d.EnemyUserData;
+import com.runner.box2d.ProjectileUserData;
+import com.runner.box2d.UserData;
 import com.runner.utils.Constants;
 
 /**
- * Created by bob on 21.11.16.
+ * Created by oCocha on 03.12.2016.
  */
 
-public class Enemy extends GameActor {
+public class Projectile extends GameActor {
 
     private Animation animation;
     private float stateTime;
 
-    private EnemyBehaviour enemyBehaviour;
-
-    public Enemy(Body body){
-
+    public Projectile(Body body){
         super(body);
+
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
         TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().length];
         for(int i = 0; i < getUserData().getTextureRegions().length; i++){
@@ -32,21 +30,17 @@ public class Enemy extends GameActor {
         }
         animation = new Animation(0.1f, runningFrames);
         stateTime = 0f;
-        enemyBehaviour = new EnemyBehaviour();
     }
 
     @Override
-    public EnemyUserData getUserData(){
-        return(EnemyUserData) userData;
+    public ProjectileUserData getUserData() {
+        return(ProjectileUserData) userData;
     }
 
     @Override
     public void act(float delta){
         super.act(delta);
         body.setLinearVelocity(getUserData().getLinearVelocity());
-
-        //body.setLinearVelocity(enemyBehaviour.update(body.getLinearVelocity()));
-
     }
 
     @Override
