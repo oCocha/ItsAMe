@@ -45,10 +45,13 @@ public class HudStage extends Stage {
     private Touchpad touchpad;
 
     private Circle shootButton;
+    private Circle switchModeButton;
 
     private Label levelLabel;
     private Label playerLabel;
     private Label itsAMeLabel;
+    private Label shootLabel;
+    private Label scoreLabel;
 
     private ShapeRenderer shapeRenderer;
     private Vector3 touchPoint;
@@ -69,22 +72,27 @@ public class HudStage extends Stage {
         levelLabel = new Label("Testlevel 1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         playerLabel = new Label("Player", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         itsAMeLabel = new Label("Its a Me!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        shootLabel = new Label("BULLET", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label("Score: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(itsAMeLabel).expandX().padTop(10);
+        table.add(scoreLabel).expandX();
         table.row();
         table.add(levelLabel).expandX();
+        table.add(shootLabel).expandX();
 
         addActor(table);
     }
 
     private void setupUI() {
         setupTouchpad();
-        setupButton();
+        setupButtons();
         Gdx.input.setInputProcessor(this);
     }
 
-    private void setupButton() {
+    private void setupButtons() {
         shootButton = new Circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
+        switchModeButton = new Circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() * 2 / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
     }
 
     private void setupTouchpad() {
@@ -121,8 +129,11 @@ public class HudStage extends Stage {
         shapeRenderer.setProjectionMatrix(getCamera().combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0, 1, 0, 0.2f));
-        //Draw the leftSideButton
+        //Draw the shootButton
         shapeRenderer.circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
+        shapeRenderer.setColor(new Color(1, 0, 0, 0.2f));
+        //Draw the switchModeButton
+        shapeRenderer.circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() * 2 / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
@@ -132,8 +143,19 @@ public class HudStage extends Stage {
         _translateScreenToWorldCoordinates(x, y);
 
         if(_shootButtonTouched(touchPoint.x, touchPoint.y)){
-            System.out.print("TOUCH");
+            System.out.print("Shoot");
             GameScreen.gameStage.shoot();
+        }
+        if(_switchModeButtonTouched(touchPoint.x, touchPoint.y)){
+            System.out.print("Mode");
+            if(GameScreen.gameStage.runner.getShootMode() == 1){
+                GameScreen.gameStage.runner.setShootMode(0);
+                shootLabel.setText("BULLET");
+            }
+            else{
+                GameScreen.gameStage.runner.setShootMode(1);
+                shootLabel.setText("BOMB");
+            }
         }
         return super.touchDown(x, y, pointer, button);
     }
@@ -142,8 +164,16 @@ public class HudStage extends Stage {
         return shootButton.contains(x, y);
     }
 
+    private boolean _switchModeButtonTouched(float x, float y){
+        return switchModeButton.contains(x, y);
+    }
+
     private void _translateScreenToWorldCoordinates(int x, int y){
         getCamera().unproject(touchPoint.set(x, y, 0));
+    }
+
+    public void setScore(int score){
+        scoreLabel.setText("SCORE: " + score);
     }
 
     @Override

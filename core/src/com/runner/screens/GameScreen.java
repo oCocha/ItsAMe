@@ -16,7 +16,7 @@ import com.runner.utils.Constants;
 
 public class GameScreen implements Screen {
 
-    private final HudStage hudStage;
+    private static HudStage hudStage;
     public static GameStage gameStage;
     private static Game game;
 
@@ -72,5 +72,9 @@ public class GameScreen implements Screen {
     public void dispose() {
         gameStage.dispose();
         hudStage.dispose();
+    }
+
+    public static void setScore(int score) {
+        hudStage.setScore(score);
     }
 }

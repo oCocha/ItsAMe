@@ -22,9 +22,12 @@ public class Projectile extends GameActor {
 
     private boolean facingLeft;
 
-    public Projectile(Body body, boolean facingLeft){
+    private ProjectileUserData projectileUserData;
+
+    public Projectile(Body body, boolean facingLeft, ProjectileUserData projectileUserData){
         super(body);
 
+        this.projectileUserData = projectileUserData;
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
         TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().length];
         for(int i = 0; i < getUserData().getTextureRegions().length; i++){
@@ -39,17 +42,18 @@ public class Projectile extends GameActor {
 
     @Override
     public ProjectileUserData getUserData() {
-        return(ProjectileUserData) userData;
+        return projectileUserData;
     }
 
     @Override
     public void act(float delta){
         super.act(delta);
         if(facingLeft == true){
-            body.setLinearVelocity(getUserData().getLinearVelocityLeft());
+            Vector2 tempVelocity = new Vector2(-getUserData().getLinearVelocity().x, getUserData().getLinearVelocity().y);
+            body.setLinearVelocity(tempVelocity);
         }
         else{
-            body.setLinearVelocity(getUserData().getLinearVelocityRight());
+            body.setLinearVelocity(getUserData().getLinearVelocity());
         }
     }
 

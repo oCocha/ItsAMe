@@ -33,6 +33,8 @@ public class Runner extends GameActor {
 
     private Body runnerBody;
 
+    private int shootMode = Constants.DEFAULT_SHOOT_MODE;
+
     public Runner(Body body/*, TiledMapTileLayer collisionLayer*/){
 
         super(body);
@@ -61,10 +63,10 @@ public class Runner extends GameActor {
         }else if(hit){
             batch.draw(hitTexture, screenRectangle.x, screenRectangle.y, facingLeft ? -screenRectangle.width * 0.5f : screenRectangle.width * 0.5f, screenRectangle.height * 0.5f, screenRectangle.width, screenRectangle.height, 1f, 1f, (float)Math.toDegrees(body.getAngle()));
         }else if(jumping){
-            batch.draw(jumpingTexture, facingLeft ? screenRectangle.x + screenRectangle.width : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
+            batch.draw(jumpingTexture, facingLeft ? screenRectangle.x + screenRectangle.width * 3 / 2 : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
         }else{
             stateTime += Gdx.graphics.getDeltaTime();
-            batch.draw(runningAnimation.getKeyFrame(stateTime, true), facingLeft ? screenRectangle.x + screenRectangle.width : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
+            batch.draw(runningAnimation.getKeyFrame(stateTime, true), facingLeft ? screenRectangle.x + screenRectangle.width * 3 / 2 : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
         }
     }
 
@@ -157,7 +159,15 @@ public class Runner extends GameActor {
         }
     }
 
+    public void setShootMode(int newMode){
+        shootMode = newMode;
+    }
+
     public boolean getFacingLeft() {
         return facingLeft;
+    }
+
+    public int getShootMode() {
+        return shootMode;
     }
 }

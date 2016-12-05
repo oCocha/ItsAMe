@@ -72,6 +72,8 @@ public class GameStage extends Stage implements ContactListener {
     private ArrayList<Body> destroyList = new ArrayList<Body>();
     private boolean noEnemy = true;
 
+    private int score = 0;
+
     public GameStage(){
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         setupCamera();
@@ -151,7 +153,7 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private void setUpRunner() {
-        runner = new Runner(WorldUtils.createRunner(world)/*, collisionLayer*/);
+        runner = new Runner(WorldUtils.createRunner(world));
         addActor(runner);
     }
 
@@ -221,13 +223,9 @@ public class GameStage extends Stage implements ContactListener {
             if(BodyUtils.bodyIsRunner(body) && !runner.isHit()){
                 GameScreen.restartGame();
             }else{
-                world.destroyBody(body);
+                System.out.print("Projectile destroyed");
+                destroyList.add(body);
             }
-            /**Destroy Projectiles when they are out of bounds
-             *
-            if(BodyUtils.bodyIsProjectile(body) && !runner.isHit()){
-                world.destroyBody(body);
-            }*/
         }
 
         /**SOLUTION 1
@@ -295,6 +293,8 @@ public class GameStage extends Stage implements ContactListener {
                 destroyList.add(a);
                 destroyList.add(b);
                 noEnemy = true;
+                score++;
+                setScore(score);
             }
         }
     }
@@ -314,8 +314,13 @@ public class GameStage extends Stage implements ContactListener {
 
     }
 
+    private void setScore(int score){
+        GameScreen.setScore(score);
+    }
+
     public void shoot() {
-        Projectile projectile = new Projectile(WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN, runner.getFacingLeft()), runner.getFacingLeft());
+        Body projectileBody = WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN, runner.getFacingLeft(), runner.getShootMode());
+        Projectile projectile = new Projectile(projectileBody, runner.getFacingLeft(), (ProjectileUserData) projectileBody.getUserData());
         addActor(projectile);
     }
 

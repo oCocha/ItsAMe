@@ -32,7 +32,7 @@ public class Constants {
     public static final float RUNNER_WIDTH = 10f;
     public static final float RUNNER_HEIGHT = 20f;
     public static final float RUNNER_GRAVITY_SCALE = 3f;
-    public static float PLAYER_STAMP = 0.97f;
+    public static float PLAYER_STAMP = 0.89f;
     public static final float RUNNER_SPEED_MAX = 5f;    //The max speed of the player
     public static final float RUNNER_SPEED_STEP = 1f;   //The amount the players speed increases per button click
     public static float RUNNER_DENSITY = 0.5f;
@@ -61,15 +61,27 @@ public class Constants {
     public static float ENEMY_JUMP_LINEAR_VELOCITY = 13f;
     public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-5f, 0);
 
+    public static final int DEFAULT_SHOOT_MODE = 1;
+
     public static final float PROJECTILE_GRAVITY_SCALE = 5f;
-    public static final Vector2 PROJECTILE_LINEAR_VELOCITY_RIGHT = new Vector2(20f, 0);
-    public static final Vector2 PROJECTILE_LINEAR_VELOCITY_LEFT = new Vector2(-20f, 0);
+    public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT = new Vector2(20f, 0);
+    public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT = new Vector2(-20f, 0);
     public static final float PROJECTILE_BULLET_DENSITY = 0.5f;
+    public static final float PROJECTILE_BULLET_GRAVITY_SCALE = 1f;
     public static final float PROJECTILE_BULLET_Y = 1f;
     public static final float PROJECTILE_BULLET_X = 1f;
     public static final float PROJECTILE_BULLET_WIDTH = 20f;
     public static final float PROJECTILE_BULLET_HEIGHT = 5f;
     public static final String[] PROJECTILE_BULLET_REGION_NAMES = new String[] {"worm_walk1", "worm_walk2"};
+    public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_RIGHT = new Vector2(3f, -3);
+    public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_LEFT = new Vector2(-3f, -3);
+    public static final float PROJECTILE_BOMB_DENSITY = 0.5f;
+    public static final float PROJECTILE_BOMB_GRAVITY_SCALE = 10f;
+    public static final float PROJECTILE_BOMB_Y = 1f;
+    public static final float PROJECTILE_BOMB_X = 1f;
+    public static final float PROJECTILE_BOMB_WIDTH = 20f;
+    public static final float PROJECTILE_BOMB_HEIGHT = 20f;
+    public static final String[] PROJECTILE_BOMB_REGION_NAMES = new String[] {"ladyBug_walk1", "ladyBug_walk2"};
 
     public static final String LOGO_IMAGE_PATH = "screens/logo.png";
     public static final String MAINMENU_IMAGE_PATH = "screens/title.png";
@@ -80,12 +92,12 @@ public class Constants {
 
     public static final String UI_ATLAS_PATH = "ui/uiatlas.txt";
     public static final String UI_SKIN_PATH = "ui/uiskin.json";
-    public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/touchBackground.png";
-    public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnob.png";
+    public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/touchBackgroundTrans.png";
+    public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnobTrans.png";
     public static final float UI_TOUCHPAD_X = APP_WIDTH / 8;
     public static final float UI_TOUCHPAD_Y = APP_HEIGTH / 3 ;
-    public static final float UI_TOUCHPAD_WIDTH = 200;
-    public static final float UI_TOUCHPAD_HEIGHT = 200;
+    public static final float UI_TOUCHPAD_WIDTH = 250;
+    public static final float UI_TOUCHPAD_HEIGHT = 250;
     public static final float UI_TOUCHPAD_INTENSITY = 120;   //The lower the value the faster the joystick reacts
     public static final float UI_BUTTON_SHOOT_X = APP_WIDTH * 6 / 8;
     public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 3;

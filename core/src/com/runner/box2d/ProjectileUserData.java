@@ -10,35 +10,53 @@ import com.runner.utils.Constants;
 
 public class ProjectileUserData extends UserData{
 
-    private Vector2 linearVelocityRight;
-    private Vector2 linearVelocityLeft;
+    private Vector2 bulletLinearVelocityRight;
+    private Vector2 bulletLinearVelocityLeft;
+    private Vector2 bombLinearVelocityRight;
+    private Vector2 bombLinearVelocityLeft;
+    private Vector2 linearVelocity;
     private String[] textureRegions;
 
     private boolean destroyed;
 
-    public ProjectileUserData(float width, float height, String[] textureRegions, boolean facingLeft){
+    public ProjectileUserData(float width, float height, String[] textureRegions, boolean facingLeft, Vector2 linearVelocity){
         super(width, height);
         userDataType = UserDataType.PROJECTILE;
-        linearVelocityRight = Constants.PROJECTILE_LINEAR_VELOCITY_RIGHT;
-        linearVelocityLeft= Constants.PROJECTILE_LINEAR_VELOCITY_LEFT;
+        bulletLinearVelocityRight = Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT;
+        bulletLinearVelocityLeft= Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT;
+        bombLinearVelocityRight = Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT;
+        bombLinearVelocityLeft= Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT;
         this.textureRegions = textureRegions;
+        this.linearVelocity = linearVelocity;
         destroyed = false;
     }
 
     public void setLinearVelocityRight(Vector2 linearVelocity){
-        this.linearVelocityRight = linearVelocity;
+        this.bulletLinearVelocityRight = linearVelocity;
     }
 
     public void setLinearVelocityLeft(Vector2 linearVelocity){
-        this.linearVelocityLeft = linearVelocity;
+        this.bulletLinearVelocityLeft = linearVelocity;
     }
 
-    public Vector2 getLinearVelocityRight(){
-        return linearVelocityRight;
+    public Vector2 getLinearBulletVelocityRight(){
+        return bulletLinearVelocityRight;
     }
 
-    public Vector2 getLinearVelocityLeft(){
-        return linearVelocityLeft;
+    public Vector2 getLinearBulletVelocityLeft(){
+        return bulletLinearVelocityLeft;
+    }
+
+    public Vector2 getLinearBombVelocityRight(){
+        return bombLinearVelocityRight;
+    }
+
+    public Vector2 getLinearBombVelocityLeft(){
+        return bombLinearVelocityLeft;
+    }
+
+    public Vector2 getLinearVelocity(){
+        return linearVelocity;
     }
 
     public String[] getTextureRegions(){

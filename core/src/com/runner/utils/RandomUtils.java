@@ -22,6 +22,11 @@ public class RandomUtils {
         return randomEnum.random();
     }
 
+    public static ProjectileType getProjectileType(int shootMode) {
+        RandomEnum<ProjectileType> randomEnum = new RandomEnum<ProjectileType>(ProjectileType.class);
+        return randomEnum.notRandom(shootMode);
+    }
+
     private static class RandomEnum<E extends Enum> {
 
         private static final Random RND = new Random();
@@ -33,6 +38,10 @@ public class RandomUtils {
 
         public E random() {
             return values[RND.nextInt(values.length)];
+        }
+
+        public E notRandom(int shootMode) {
+            return values[shootMode];
         }
     }
 }

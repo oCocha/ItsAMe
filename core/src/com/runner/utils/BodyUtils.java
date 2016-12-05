@@ -17,7 +17,7 @@ public class BodyUtils {
             case RUNNER:
                 return body.getPosition().y > 0;
             case PROJECTILE:
-                return body.getPosition().y > 0;
+                return body.getPosition().x > 0;
             case ENEMY:
                 return body.getPosition().x + userData.getWidth() / 2 > enemyDespawnX;
         }

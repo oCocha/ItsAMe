@@ -100,8 +100,12 @@ public class WorldUtils {
         return body;
     }
 
-    public static Body createProjectile(World world, float spawnX, float spawnY, boolean facingLeft){
+    public static Body createProjectile(World world, float spawnX, float spawnY, boolean facingLeft, int shootMode){
+        /**Get a random projectileType
+         *
         ProjectileType projectileType = RandomUtils.getRandomProjectileType();
+         */
+        ProjectileType projectileType = RandomUtils.getProjectileType(shootMode);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         if(facingLeft == true){
@@ -120,10 +124,10 @@ public class WorldUtils {
         fDef.isSensor = false;
 
         Body body = world.createBody(bodyDef);
-        body.setGravityScale(Constants.PROJECTILE_GRAVITY_SCALE);
+        body.setGravityScale(projectileType.getGravity());
         body.createFixture(fDef);
         body.resetMassData();
-        ProjectileUserData userData = new ProjectileUserData(projectileType.getWidth(), projectileType.getHeight(), projectileType.getRegions(), facingLeft);
+        ProjectileUserData userData = new ProjectileUserData(projectileType.getWidth(), projectileType.getHeight(), projectileType.getRegions(), facingLeft, projectileType.getLinearVelocity());
         body.setUserData(userData);
         shape.dispose();
         return body;
