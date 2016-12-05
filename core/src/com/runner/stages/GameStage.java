@@ -43,6 +43,8 @@ import com.runner.utils.BodyUtils;
 import com.runner.utils.Constants;
 import com.runner.utils.WorldUtils;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by bob on 20.11.16.
@@ -60,30 +62,15 @@ public class GameStage extends Stage implements ContactListener {
 
     private OrthographicCamera camera;
 
-    //Controls
-    private Rectangle screenRightButton;
-    private Rectangle screenLeftButton;
-    private Rectangle screenTopButton;
-    private Rectangle screenBotButton;
-    private Touchpad touchpad;
-    private Skin touchpadSkin;
-    private Touchpad.TouchpadStyle touchpadStyle;
-    private Drawable touchBackground;
-    private Drawable touchKnob;
-
-    private Vector3 touchPoint;
-
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private TiledMapTileLayer collisionLayer;
     private float tileSize;
-    private PolygonShape shape;
-
-    private ShapeRenderer shapeRenderer;
 
     private Box2DDebugRenderer debugRenderer;
 
-    private Array<Body> destroyList = new Array<Body>();
+    private ArrayList<Body> destroyList = new ArrayList<Body>();
+    private boolean noEnemy = true;
 
     public GameStage(){
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
@@ -158,6 +145,7 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private void createEnemy(float enemySpawnX) {
+        noEnemy = false;
         Enemy enemy = new Enemy(WorldUtils.createEnemy(world, enemySpawnX));
         addActor(enemy);
     }
@@ -201,19 +189,24 @@ public class GameStage extends Stage implements ContactListener {
             update(body);
         }
 
+        if(noEnemy == true)
+            createEnemy(runner.getPosition().x + camera.viewportWidth / 2);
+
         /**SOLUTION 2
          * Destroy projectiles on ground collision
          *
         /**Destroy all bodies that were saved in the destroylist*/
-        if(destroyList.size != 0){
-            for(int i = 0, s = destroyList.size; i < s; i++){
-
-                /**FEHLER HIER*/
-                if(!world.isLocked()){
-                    world.destroyBody(destroyList.get(i));
-                }
+        while(destroyList.size() != 0){
+            if(!world.isLocked()){
+                Body tempBody = destroyList.get(0);
+                tempBody  = null;
+                world.destroyBody(destroyList.get(0));
+                destroyList.remove(0);
             }
         }
+
+        if(runner.isHit() == true)
+            GameScreen.restartGame();
 
         //TODO: Implement interpolation
     }
@@ -280,9 +273,9 @@ public class GameStage extends Stage implements ContactListener {
 
             /**SOLUTION 2
              * Destroy projectiles on ground collision
-             *
-            destroyList.add(b);
              */
+            if(!destroyList.contains(b))
+                destroyList.add(b);
         }else if(BodyUtils.bodyIsGround(b) && BodyUtils.bodyIsProjectile(a)){
             /**SOLUTION 1
              * Destroy projectiles on ground collision
@@ -294,9 +287,15 @@ public class GameStage extends Stage implements ContactListener {
 
             /**SOLUTION 2
              * Destroy projectiles on ground collision
-             *
-            destroyList.add(a);
              */
+            if(!destroyList.contains(a))
+                destroyList.add(a);
+        }else if(BodyUtils.bodyIsEnemy(b) && BodyUtils.bodyIsProjectile(a) || BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsProjectile(b)){
+            if(!destroyList.contains(a) && !destroyList.contains(b)){
+                destroyList.add(a);
+                destroyList.add(b);
+                noEnemy = true;
+            }
         }
     }
 
@@ -315,13 +314,8 @@ public class GameStage extends Stage implements ContactListener {
 
     }
 
-
-    public void movePlayer(float knobPercentX, float knobPercentY) {
-        runner.move(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
-    }
-
     public void shoot() {
-        Projectile projectile = new Projectile(WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN));
+        Projectile projectile = new Projectile(WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN, runner.getFacingLeft()), runner.getFacingLeft());
         addActor(projectile);
     }
 

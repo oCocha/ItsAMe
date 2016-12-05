@@ -8,8 +8,8 @@ import com.runner.utils.Constants;
 
 public enum ProjectileType {
 
-    BULLET_SMALL(Constants.RUNNING_SHORT_ENEMY_WIDTH / Constants.WORLD_TO_SCREEN, Constants.RUNNING_SHORT_ENEMY_HEIGHT / Constants.WORLD_TO_SCREEN, Constants.ENEMY_X, Constants.RUNNING_SHORT_ENEMY_Y, Constants.ENEMY_DENSITY,
-            Constants.RUNNING_SMALL_ENEMY_REGION_NAMES);
+    BULLET_SMALL(Constants.PROJECTILE_BULLET_WIDTH / Constants.WORLD_TO_SCREEN, Constants.PROJECTILE_BULLET_HEIGHT / Constants.WORLD_TO_SCREEN, Constants.PROJECTILE_BULLET_X, Constants.PROJECTILE_BULLET_Y, Constants.PROJECTILE_BULLET_DENSITY,
+            Constants.PROJECTILE_BULLET_REGION_NAMES);
 
     private float width;
     private float height;

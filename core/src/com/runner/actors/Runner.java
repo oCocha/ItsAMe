@@ -116,8 +116,7 @@ public class Runner extends GameActor {
 
     public void hit(){
         //body.applyAngularImpulse(getUserData().getHitAngularImpulse(), true);
-        //hit = true;
-        //GameScreen.restartGame();
+        hit = true;
     }
 
     public boolean isHit(){
@@ -156,5 +155,9 @@ public class Runner extends GameActor {
         if(knobPercentY > Constants.UI_TOUCHPAD_JUMP_SENSITY){
             jump();
         }
+    }
+
+    public boolean getFacingLeft() {
+        return facingLeft;
     }
 }

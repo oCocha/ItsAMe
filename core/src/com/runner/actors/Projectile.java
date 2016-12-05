@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.runner.box2d.ProjectileUserData;
 import com.runner.box2d.UserData;
@@ -19,7 +20,9 @@ public class Projectile extends GameActor {
     private Animation animation;
     private float stateTime;
 
-    public Projectile(Body body){
+    private boolean facingLeft;
+
+    public Projectile(Body body, boolean facingLeft){
         super(body);
 
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
@@ -30,6 +33,8 @@ public class Projectile extends GameActor {
         }
         animation = new Animation(0.1f, runningFrames);
         stateTime = 0f;
+
+        this.facingLeft = facingLeft;
     }
 
     @Override
@@ -40,7 +45,12 @@ public class Projectile extends GameActor {
     @Override
     public void act(float delta){
         super.act(delta);
-        body.setLinearVelocity(getUserData().getLinearVelocity());
+        if(facingLeft == true){
+            body.setLinearVelocity(getUserData().getLinearVelocityLeft());
+        }
+        else{
+            body.setLinearVelocity(getUserData().getLinearVelocityRight());
+        }
     }
 
     @Override

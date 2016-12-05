@@ -39,12 +39,8 @@ public class GameScreen implements Screen {
         hudStage.act(delta);
     }
 
-    public static void movePlayer(float knobPercentX, float knobPercentY){
-        gameStage.movePlayer(knobPercentX, knobPercentY);
-    }
-
     static public void restartGame() {
-    game.setScreen(new GameOverScreen(game));
+        game.setScreen(new GameOverScreen(game));
     }
 
     @Override

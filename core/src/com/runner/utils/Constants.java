@@ -62,7 +62,14 @@ public class Constants {
     public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-5f, 0);
 
     public static final float PROJECTILE_GRAVITY_SCALE = 5f;
-    public static final Vector2 PROJECTILE_LINEAR_VELOCITY = new Vector2(1f, 0);;
+    public static final Vector2 PROJECTILE_LINEAR_VELOCITY_RIGHT = new Vector2(20f, 0);
+    public static final Vector2 PROJECTILE_LINEAR_VELOCITY_LEFT = new Vector2(-20f, 0);
+    public static final float PROJECTILE_BULLET_DENSITY = 0.5f;
+    public static final float PROJECTILE_BULLET_Y = 1f;
+    public static final float PROJECTILE_BULLET_X = 1f;
+    public static final float PROJECTILE_BULLET_WIDTH = 20f;
+    public static final float PROJECTILE_BULLET_HEIGHT = 5f;
+    public static final String[] PROJECTILE_BULLET_REGION_NAMES = new String[] {"worm_walk1", "worm_walk2"};
 
     public static final String LOGO_IMAGE_PATH = "screens/logo.png";
     public static final String MAINMENU_IMAGE_PATH = "screens/title.png";
@@ -77,13 +84,13 @@ public class Constants {
     public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnob.png";
     public static final float UI_TOUCHPAD_X = APP_WIDTH / 8;
     public static final float UI_TOUCHPAD_Y = APP_HEIGTH / 3 ;
-    public static final float UI_TOUCHPAD_WIDTH = 150;
-    public static final float UI_TOUCHPAD_HEIGHT = 150;
+    public static final float UI_TOUCHPAD_WIDTH = 200;
+    public static final float UI_TOUCHPAD_HEIGHT = 200;
     public static final float UI_TOUCHPAD_INTENSITY = 120;   //The lower the value the faster the joystick reacts
     public static final float UI_BUTTON_SHOOT_X = APP_WIDTH * 6 / 8;
     public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 3;
     public static final float UI_BUTTON_SHOOT_RADIUS = APP_WIDTH / 10;
-    public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player alway jumps; 1: Player jumps only when joystick is exactly pointing to top
+    public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player alway jumps; 1: Player jumps only when joystick is pointing exactly to top
 
     public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
     public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"alienGreen_run1", "alienGreen_run2"};

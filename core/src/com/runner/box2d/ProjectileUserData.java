@@ -10,25 +10,35 @@ import com.runner.utils.Constants;
 
 public class ProjectileUserData extends UserData{
 
-    private Vector2 linearVelocity;
+    private Vector2 linearVelocityRight;
+    private Vector2 linearVelocityLeft;
     private String[] textureRegions;
 
     private boolean destroyed;
 
-    public ProjectileUserData(float width, float height, String[] textureRegions){
+    public ProjectileUserData(float width, float height, String[] textureRegions, boolean facingLeft){
         super(width, height);
         userDataType = UserDataType.PROJECTILE;
-        linearVelocity = Constants.PROJECTILE_LINEAR_VELOCITY;
+        linearVelocityRight = Constants.PROJECTILE_LINEAR_VELOCITY_RIGHT;
+        linearVelocityLeft= Constants.PROJECTILE_LINEAR_VELOCITY_LEFT;
         this.textureRegions = textureRegions;
         destroyed = false;
     }
 
-    public void setLinearVelocity(Vector2 linearVelocity){
-        this.linearVelocity = linearVelocity;
+    public void setLinearVelocityRight(Vector2 linearVelocity){
+        this.linearVelocityRight = linearVelocity;
     }
 
-    public Vector2 getLinearVelocity(){
-        return linearVelocity;
+    public void setLinearVelocityLeft(Vector2 linearVelocity){
+        this.linearVelocityLeft = linearVelocity;
+    }
+
+    public Vector2 getLinearVelocityRight(){
+        return linearVelocityRight;
+    }
+
+    public Vector2 getLinearVelocityLeft(){
+        return linearVelocityLeft;
     }
 
     public String[] getTextureRegions(){
