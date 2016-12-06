@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/bob/Android/libGDX/ItsAMe/android/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/bob/Android/libGDX/ItsAMe/android/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Android\Projekte\ItsAMe\android\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Android\Projekte\ItsAMe\android\src\debug\shaders"/></dataSet></merger>

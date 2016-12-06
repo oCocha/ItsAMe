@@ -1,19 +1,13 @@
 package com.runner.stages;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -23,12 +17,8 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
@@ -42,7 +32,6 @@ import com.runner.screens.GameScreen;
 import com.runner.utils.BodyUtils;
 import com.runner.utils.Constants;
 import com.runner.utils.WorldUtils;
-
 import java.util.ArrayList;
 
 
@@ -59,6 +48,7 @@ public class GameStage extends Stage implements ContactListener {
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
+    private float explodeAccumulator = 0f;
 
     private OrthographicCamera camera;
 
@@ -70,32 +60,42 @@ public class GameStage extends Stage implements ContactListener {
     private Box2DDebugRenderer debugRenderer;
 
     private ArrayList<Body> destroyList = new ArrayList<Body>();
+    private ArrayList<Vector2> explodeList = new ArrayList<Vector2>();
     private boolean noEnemy = true;
 
     private int score = 0;
+    private Texture explosionTexture;
 
+    /**Constructor*/
     public GameStage(){
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
         setupCamera();
         setupWorld();
     }
 
+    /**Initiate the game world*/
     private void setupWorld() {
         world = WorldUtils.createWorld();
         world.setContactListener(this);
-        setupShapeRenderer();
+        setupDebugRenderer();
         setupMap();
         setupBackGround();
         setUpRunner();
+        setupTextures();
         createEnemy(Constants.ENEMY_X);
     }
 
-    private void setupShapeRenderer() {
+    /**Initiate textures for later use*/
+    private void setupTextures() {
+        explosionTexture = new Texture(Constants.EXPLOSION_IMAGE_PATH);
+    }
 
-        //DEBUG TEST
+    /**Initiate the debug renderer*/
+    private void setupDebugRenderer() {
         debugRenderer = new Box2DDebugRenderer();
     }
 
+    /**Load the tile map, initiate the tilemap renderer and get the maps's "wall" elements*/
     private void setupMap() {
         map = new TmxMapLoader().load("map/level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Constants.WORLD_TO_SCREEN);
@@ -103,7 +103,7 @@ public class GameStage extends Stage implements ContactListener {
         _createBox2DObjects();
     }
 
-    //Create a Box2D Object for every cell in the tilemap layer(collision)
+    /**Create a Box2D Object for every cell in the tilemap layer(collision)*/
     private void _createBox2DObjects() {
         tileSize = collisionLayer.getTileWidth();
         //Go through all the cells in the tilemap layer
@@ -142,75 +142,100 @@ public class GameStage extends Stage implements ContactListener {
         }
     }
 
+    /**Add a background object to the stage*/
     private void setupBackGround() {
         addActor(new Background());
     }
 
+    /**Create a new enemy object and add it to the game stage*/
     private void createEnemy(float enemySpawnX) {
         noEnemy = false;
         Enemy enemy = new Enemy(WorldUtils.createEnemy(world, enemySpawnX));
         addActor(enemy);
     }
 
+    /**Create a new runner/player object and add it to the game stage*/
     private void setUpRunner() {
         runner = new Runner(WorldUtils.createRunner(world));
         addActor(runner);
     }
 
+    /**Create a new camera and set its position to the middle of the stage*/
     private void setupCamera() {
         camera = (OrthographicCamera) getViewport().getCamera();
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0.0f);
         camera.update();
     }
 
+    /**Act the stage every delta seconds*/
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        // Fixed timestep
+        /**Step the world after a fixed timestap*/
         accumulator += delta;
-
         while (accumulator >= delta) {
             world.step(TIME_STEP, 6, 2);
             accumulator -= TIME_STEP;
         }
 
+        /**Clear the explodeList after a fixed timestap*/
+        explodeAccumulator += delta;
+        while (explodeAccumulator >= delta) {
+            explodeList.clear();
+            explodeAccumulator -= Constants.EXPLOSION_TIME;
+        }
+
+        /**Update the camera position*/
         camera.position.set((runner.getPosition().x) , VIEWPORT_HEIGHT / 2, 0.0f);
         camera.update();
 
+        /**Render the map*/
         renderer.setView(camera);
         renderer.render();
 
+        /**Render the bodies/fixtures of the box2d objects*/
         debugRenderer.render(world, camera.combined);
 
+        /**Draw an explosion for every Vector2 in the explosionList*/
+        for(Vector2 explosion : explodeList){
+            explode(explosion.x, explosion.y);
+        }
+
+        /**Get all bodies in the world and save them*/
         Array<Body> bodies = new Array<Body>(world.getBodyCount());
         world.getBodies(bodies);
-
         /**Update all bodies in the stage*/
         for (Body body : bodies) {
             update(body);
         }
 
+        /**Create a new enemy object if the world contains no enemy objects*/
         if(noEnemy == true)
             createEnemy(runner.getPosition().x + camera.viewportWidth / 2);
 
-        /**SOLUTION 2
-         * Destroy projectiles on ground collision
-         *
-        /**Destroy all bodies that were saved in the destroylist*/
+        /**Destroy all bodies that were saved in the destroylist
+         * Add an explosion to the explodeList for every body that gets destroyed*/
         while(destroyList.size() != 0){
             if(!world.isLocked()){
                 Body tempBody = destroyList.get(0);
+                explodeList.add(new Vector2(tempBody.getPosition().x, tempBody.getPosition().y));
                 tempBody  = null;
                 world.destroyBody(destroyList.get(0));
                 destroyList.remove(0);
             }
         }
 
+        /**Restart the game if the runner/player was hit*/
         if(runner.isHit() == true)
             GameScreen.restartGame();
+    }
 
-        //TODO: Implement interpolation
+    /**Draw an explosion at the given parameters*/
+    private void explode(float bodyX, float bodyY) {
+        getBatch().begin();
+        getBatch().draw(explosionTexture, bodyX - Constants.EXPLOSION_WIDTH / 2, bodyY - Constants.EXPLOSION_HEIGHT / 2, Constants.EXPLOSION_WIDTH, Constants.EXPLOSION_HEIGHT);
+        getBatch().end();
     }
 
     /**Check the body for collisions and out of bounds*/
@@ -223,7 +248,6 @@ public class GameStage extends Stage implements ContactListener {
             if(BodyUtils.bodyIsRunner(body) && !runner.isHit()){
                 GameScreen.restartGame();
             }else{
-                System.out.print("Projectile destroyed");
                 destroyList.add(body);
             }
         }
@@ -239,14 +263,6 @@ public class GameStage extends Stage implements ContactListener {
             }
         }
          */
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button){
-        if(runner.isDodging()){
-            runner.stopDodge();
-        }
-        return super.touchUp(screenX, screenY, pointer, button);
     }
 
     @Override
@@ -318,6 +334,7 @@ public class GameStage extends Stage implements ContactListener {
         GameScreen.setScore(score);
     }
 
+    /**Create a new projectile object and add it to the stage*/
     public void shoot() {
         Body projectileBody = WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN, runner.getFacingLeft(), runner.getShootMode());
         Projectile projectile = new Projectile(projectileBody, runner.getFacingLeft(), (ProjectileUserData) projectileBody.getUserData());

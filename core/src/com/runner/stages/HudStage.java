@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,6 +23,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.runner.hud.MyButton;
 import com.runner.screens.GameScreen;
 import com.runner.utils.Constants;
 import com.sun.org.apache.bcel.internal.classfile.ConstantNameAndType;
@@ -52,8 +56,12 @@ public class HudStage extends Stage {
     private Label shootLabel;
     private Label scoreLabel;
 
+    private MyButton bombButton;
+
     private ShapeRenderer shapeRenderer;
     private Vector3 touchPoint;
+
+    private Texture switchModeBackground;
 
     public HudStage(){
         shapeRenderer = new ShapeRenderer();
@@ -91,7 +99,24 @@ public class HudStage extends Stage {
 
     private void setupButtons() {
         shootButton = new Circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() / 2, Constants.UI_BUTTON_SHOOT_RADIUS);
-        switchModeButton = new Circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() * 5 / 6, Constants.UI_BUTTON_SWITCH_RADIUS);
+        switchModeButton = new Circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() * 5 / 6, Constants.UI_BUTTON_SWITCH_RADIUS / 2);
+        switchModeBackground = new Texture("ui/buttons/shootButton.png");
+        /**Setup the bomb button*//*
+        Texture textureUp   = new Texture(Gdx.files.internal("ui/buttons/shootButton.png"));
+        Texture textureDown = new Texture(Gdx.files.internal("ui/buttons/shootButton.png"));
+        Texture background  = new Texture(Gdx.files.internal("ui/buttons/shootButton.png"));
+        bombButton   = new MyButton(textureUp, textureDown, background);
+        bombButton.setPosition(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() / 2);
+        bombButton.setBounds(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() / 2, 100, 100);
+        bombButton.addListener(new InputListener() {
+                                   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                       Gdx.app.log("my app", "Pressed");
+                                       toggleShootMode();
+                                       return true;
+                                   }
+                               });
+        addActor(bombButton);*/
+
     }
 
     private void setupTouchpad() {
@@ -125,15 +150,23 @@ public class HudStage extends Stage {
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        /**Buttons mit Shaperenderer*/
         shapeRenderer.setProjectionMatrix(getCamera().combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0, 1, 0, 0.2f));
-        //Draw the shootButton
+        /**Draw the shootButton*/
         shapeRenderer.circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() / 2, Constants.UI_BUTTON_SHOOT_RADIUS);
-        shapeRenderer.setColor(new Color(1, 0, 0, 0.2f));
-        //Draw the switchModeButton
-        shapeRenderer.circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() * 5/ 6, Constants.UI_BUTTON_SHOOT_RADIUS);
+        //shapeRenderer.setColor(new Color(1, 0, 0, 0.2f));
+        /**Draw the switchModeButton*/
+        //shapeRenderer.circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() * 5/ 6, Constants.UI_BUTTON_SHOOT_RADIUS / 2);
         shapeRenderer.end();
+
+        /**Buttons mit Spritebatch*/
+        getBatch().begin();
+        getBatch().draw(switchModeBackground, getViewport().getScreenWidth() * 9 / 10 - Constants.UI_BUTTON_SWITCH_RADIUS / 2, getViewport().getScreenHeight() * 5/ 6 - Constants.UI_BUTTON_SWITCH_RADIUS / 2, Constants.UI_BUTTON_SWITCH_RADIUS, Constants.UI_BUTTON_SWITCH_RADIUS);
+        getBatch().end();
+
+        draw();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
@@ -145,16 +178,35 @@ public class HudStage extends Stage {
             GameScreen.gameStage.shoot();
         }
         if(_switchModeButtonTouched(touchPoint.x, touchPoint.y)){
-            if(GameScreen.gameStage.runner.getShootMode() == 1){
-                GameScreen.gameStage.runner.setShootMode(0);
-                shootLabel.setText("BULLET");
-            }
-            else{
-                GameScreen.gameStage.runner.setShootMode(1);
-                shootLabel.setText("BOMB");
-            }
+            toggleShootMode();
         }
         return super.touchDown(x, y, pointer, button);
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button){
+        System.out.print("TOUCHUP");
+        if(GameScreen.gameStage.runner.isDodging()){
+            GameScreen.gameStage.runner.stopDodge();
+        }
+        return super.touchUp(screenX, screenY, pointer, button);
+    }
+
+    private void toggleShootMode(){
+        if(GameScreen.gameStage.runner.getShootMode() == 1){
+            GameScreen.gameStage.runner.setShootMode(0);
+            //bombButton.setBackground(new Texture(Gdx.files.internal("ui/buttons/shootButton.png")));
+            //bombButton.(new Texture(Gdx.files.internal("ui/buttons/shootButton.png")));
+            switchModeBackground = new Texture("ui/buttons/shootButton.png");
+            shootLabel.setText("BULLET");
+        }
+        else{
+            GameScreen.gameStage.runner.setShootMode(1);
+            //bombButton.setBackground(new Texture(Gdx.files.internal("ui/buttons/bombButton.png")));
+            //bombButton.setTextureUp(new Texture(Gdx.files.internal("ui/buttons/bombButton.png")));
+            switchModeBackground = new Texture("ui/buttons/bombButton.png");
+            shootLabel.setText("BOMB");
+        }
     }
 
     private boolean _shootButtonTouched(float x, float y){
@@ -176,5 +228,6 @@ public class HudStage extends Stage {
     @Override
     public void dispose(){
         touchpadSkin.dispose();
+        switchModeBackground.dispose();
     }
 }

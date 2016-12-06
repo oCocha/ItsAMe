@@ -61,7 +61,7 @@ public class Constants {
     public static float ENEMY_JUMP_LINEAR_VELOCITY = 13f;
     public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-5f, 0);
 
-    public static final int DEFAULT_SHOOT_MODE = 1;
+    public static final int DEFAULT_SHOOT_MODE = 0;
 
     public static final float PROJECTILE_GRAVITY_SCALE = 5f;
     public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT = new Vector2(20f, 0);
@@ -90,10 +90,15 @@ public class Constants {
     public static final String BACKGROUND_IMAGE_PATH = "background.png";
     public static final String GROUND_IMAGE_PATH = "ground.png";
 
+    public static final String EXPLOSION_IMAGE_PATH = "explosion.png";
+    public static final float EXPLOSION_WIDTH = APP_WIDTH / (30 * WORLD_TO_SCREEN);
+    public static final float EXPLOSION_HEIGHT = APP_HEIGTH / (15f * WORLD_TO_SCREEN);
+    public static final float EXPLOSION_TIME = 1/2f;
+
     public static final String UI_ATLAS_PATH = "ui/uiatlas.txt";
     public static final String UI_SKIN_PATH = "ui/uiskin.json";
-    public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/touchBackgroundTrans.png";
-    public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnobTrans.png";
+    public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/joystick/touchBackgroundTrans1.png";
+    public static final String UI_TOUCHPAD_KNOB_PATH = "ui/joystick/touchKnobTrans1.png";
     public static final float UI_TOUCHPAD_WIDTH = 250;
     public static final float UI_TOUCHPAD_HEIGHT = 250;
     public static final float UI_TOUCHPAD_X = 0;
@@ -102,10 +107,11 @@ public class Constants {
     public static final float UI_BUTTON_SHOOT_RADIUS = APP_WIDTH / 10;
     public static final float UI_BUTTON_SHOOT_X = APP_WIDTH;
     public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 2;
-    public static final float UI_BUTTON_SWITCH_RADIUS = APP_WIDTH / 10;
+    public static final float UI_BUTTON_SWITCH_RADIUS = APP_WIDTH / 5;
     public static final float UI_BUTTON_SWITCH_X = APP_WIDTH;
     public static final float UI_BUTTON_SWITCH_Y = APP_HEIGTH / 4;
-    public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player alway jumps; 1: Player jumps only when joystick is pointing exactly to top
+    public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player always jumps; 1: Player jumps only when joystick is pointing exactly to top
+    public static final float UI_TOUCHPAD_DODGE_SENSITY = -0.9f;     //0: Player always dodges; 1: Player dodges only when joystick is pointing exactly to bottom
 
     public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
     public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"alienGreen_run1", "alienGreen_run2"};

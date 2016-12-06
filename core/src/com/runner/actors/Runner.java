@@ -106,6 +106,7 @@ public class Runner extends GameActor {
     }
 
     public void stopDodge(){
+        System.out.print("Stop");
         dodging = false;
         if (!hit) {
             body.setTransform(body.getPosition(), 0f);
@@ -134,28 +135,32 @@ public class Runner extends GameActor {
     public void move(float knobPercentX, float knobPercentY) {
         velocity = body.getLinearVelocity();
         /**Control max speed in right direction*/
-        if(velocity.x < (-Constants.RUNNER_SPEED_MAX)){
+        if(velocity.x < (-Constants.RUNNER_SPEED_MAX) && !dodging){
             facingLeft = true;
             velocity.set(-Constants.RUNNER_SPEED_MAX, velocity.y);
         /**Control max speed in left direction*/
-        }else if(velocity.x > (Constants.RUNNER_SPEED_MAX)){
+        }else if(velocity.x > (Constants.RUNNER_SPEED_MAX) && !dodging){
             facingLeft = false;
             velocity.set(Constants.RUNNER_SPEED_MAX, velocity.y);
         /**Set the player speed according to the percentage value the player moved the joystick*/
-        }else{
+        }else if(!dodging){
             velocity.set(velocity.x + knobPercentX * Constants.RUNNER_SPEED_STEP, velocity.y);
         }
         /**Change the direction the player sprite is looking at*/
-        if(velocity.x > 0){
+        if(velocity.x > 0  && !dodging){
             facingLeft = false;
-        }else{
+        }else if(!dodging){
             facingLeft = true;
         }
         /**Apply the movement velocity*/
         body.setLinearVelocity(velocity);
-        /**Jump when the user moved the joystick to the top direction*/
-        if(knobPercentY > Constants.UI_TOUCHPAD_JUMP_SENSITY){
+        /**Jump if the user moved the joystick in top direction*/
+        if(knobPercentY > Constants.UI_TOUCHPAD_JUMP_SENSITY && !dodging){
             jump();
+        }
+        /**Dodge if the user moved the joystick in bottom direction*/
+        if(knobPercentY < Constants.UI_TOUCHPAD_DODGE_SENSITY){
+            dodge();
         }
     }
 
