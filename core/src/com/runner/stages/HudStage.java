@@ -22,8 +22,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.runner.screens.GameScreen;
 import com.runner.utils.Constants;
-
-import javax.swing.text.View;
+import com.sun.org.apache.bcel.internal.classfile.ConstantNameAndType;
 
 /**
  * Created by bob on 02.12.16.
@@ -91,8 +90,8 @@ public class HudStage extends Stage {
     }
 
     private void setupButtons() {
-        shootButton = new Circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
-        switchModeButton = new Circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() * 2 / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
+        shootButton = new Circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() / 2, Constants.UI_BUTTON_SHOOT_RADIUS);
+        switchModeButton = new Circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() * 5 / 6, Constants.UI_BUTTON_SWITCH_RADIUS);
     }
 
     private void setupTouchpad() {
@@ -106,7 +105,7 @@ public class HudStage extends Stage {
         touchpadStyle.background = touchBackground;
         touchpadStyle.knob = touchKnob;
         touchpad = new Touchpad(Constants.UI_TOUCHPAD_INTENSITY / Constants.WORLD_TO_SCREEN, touchpadStyle);
-        touchpad.setBounds(getViewport().getScreenWidth() / 8, getViewport().getScreenHeight() / 3 - Constants.UI_TOUCHPAD_WIDTH / 2, Constants.UI_TOUCHPAD_WIDTH, Constants.UI_TOUCHPAD_HEIGHT);
+        touchpad.setBounds(getViewport().getScreenWidth() / 8 - Constants.UI_TOUCHPAD_WIDTH / 2, getViewport().getScreenHeight() / 2 - Constants.UI_TOUCHPAD_WIDTH / 2, Constants.UI_TOUCHPAD_WIDTH, Constants.UI_TOUCHPAD_HEIGHT);
         addActor(touchpad);
     }
 
@@ -130,10 +129,10 @@ public class HudStage extends Stage {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0, 1, 0, 0.2f));
         //Draw the shootButton
-        shapeRenderer.circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
+        shapeRenderer.circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() / 2, Constants.UI_BUTTON_SHOOT_RADIUS);
         shapeRenderer.setColor(new Color(1, 0, 0, 0.2f));
         //Draw the switchModeButton
-        shapeRenderer.circle(getViewport().getScreenWidth() * 6 / 8, getViewport().getScreenHeight() * 2 / 3, Constants.UI_BUTTON_SHOOT_RADIUS);
+        shapeRenderer.circle(getViewport().getScreenWidth() * 9 / 10, getViewport().getScreenHeight() * 5/ 6, Constants.UI_BUTTON_SHOOT_RADIUS);
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
@@ -143,11 +142,9 @@ public class HudStage extends Stage {
         _translateScreenToWorldCoordinates(x, y);
 
         if(_shootButtonTouched(touchPoint.x, touchPoint.y)){
-            System.out.print("Shoot");
             GameScreen.gameStage.shoot();
         }
         if(_switchModeButtonTouched(touchPoint.x, touchPoint.y)){
-            System.out.print("Mode");
             if(GameScreen.gameStage.runner.getShootMode() == 1){
                 GameScreen.gameStage.runner.setShootMode(0);
                 shootLabel.setText("BULLET");

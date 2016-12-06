@@ -94,14 +94,17 @@ public class Constants {
     public static final String UI_SKIN_PATH = "ui/uiskin.json";
     public static final String UI_TOUCHPAD_BACKGROUND_PATH = "ui/touchBackgroundTrans.png";
     public static final String UI_TOUCHPAD_KNOB_PATH = "ui/touchKnobTrans.png";
-    public static final float UI_TOUCHPAD_X = APP_WIDTH / 8;
-    public static final float UI_TOUCHPAD_Y = APP_HEIGTH / 3 ;
     public static final float UI_TOUCHPAD_WIDTH = 250;
     public static final float UI_TOUCHPAD_HEIGHT = 250;
+    public static final float UI_TOUCHPAD_X = 0;
+    public static final float UI_TOUCHPAD_Y = APP_HEIGTH / 2  ;
     public static final float UI_TOUCHPAD_INTENSITY = 120;   //The lower the value the faster the joystick reacts
-    public static final float UI_BUTTON_SHOOT_X = APP_WIDTH * 6 / 8;
-    public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 3;
     public static final float UI_BUTTON_SHOOT_RADIUS = APP_WIDTH / 10;
+    public static final float UI_BUTTON_SHOOT_X = APP_WIDTH;
+    public static final float UI_BUTTON_SHOOT_Y = APP_HEIGTH / 2;
+    public static final float UI_BUTTON_SWITCH_RADIUS = APP_WIDTH / 10;
+    public static final float UI_BUTTON_SWITCH_X = APP_WIDTH;
+    public static final float UI_BUTTON_SWITCH_Y = APP_HEIGTH / 4;
     public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player alway jumps; 1: Player jumps only when joystick is pointing exactly to top
 
     public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
