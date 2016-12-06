@@ -195,15 +195,11 @@ public class HudStage extends Stage {
     private void toggleShootMode(){
         if(GameScreen.gameStage.runner.getShootMode() == 1){
             GameScreen.gameStage.runner.setShootMode(0);
-            //bombButton.setBackground(new Texture(Gdx.files.internal("ui/buttons/shootButton.png")));
-            //bombButton.(new Texture(Gdx.files.internal("ui/buttons/shootButton.png")));
             switchModeBackground = new Texture("ui/buttons/shootButton.png");
             shootLabel.setText("BULLET");
         }
         else{
             GameScreen.gameStage.runner.setShootMode(1);
-            //bombButton.setBackground(new Texture(Gdx.files.internal("ui/buttons/bombButton.png")));
-            //bombButton.setTextureUp(new Texture(Gdx.files.internal("ui/buttons/bombButton.png")));
             switchModeBackground = new Texture("ui/buttons/bombButton.png");
             shootLabel.setText("BOMB");
         }

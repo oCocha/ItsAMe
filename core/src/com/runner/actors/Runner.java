@@ -22,12 +22,14 @@ public class Runner extends GameActor {
     private boolean jumping;
     private boolean dodging;
     private boolean hit;
+    private boolean readyToJump = true;
     private Animation runningAnimation;
     private TextureRegion jumpingTexture;
     private TextureRegion dodgingTexture;
     private TextureRegion hitTexture;
     private float stateTime;
     private boolean facingLeft = false;
+    private float accumulator = 0f;
 
     private Vector2 velocity;
 
@@ -74,6 +76,15 @@ public class Runner extends GameActor {
     public void act(float delta){
         super.act(delta);
         update();
+
+        /**Refresh the readytojump variable*/
+        if(!jumping && !readyToJump){
+            accumulator += delta;
+            while (accumulator >= delta) {
+                readyToJump = true;
+                accumulator -= Constants.RUNNER_JUMP_DELAY;
+            }
+        }
     }
 
     private void update() {
@@ -88,9 +99,10 @@ public class Runner extends GameActor {
     }
 
     public void jump(){
-        if(!jumping || dodging || hit){
+        if((!jumping /*|| dodging || hit*/) && readyToJump){
             body.applyLinearImpulse(getUserData().getJumpingLinearImpulse(), body.getWorldCenter(), true);
             jumping = true;
+            readyToJump = false;
         }
     }
 

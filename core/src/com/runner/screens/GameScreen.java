@@ -20,12 +20,11 @@ public class GameScreen implements Screen {
     public static GameStage gameStage;
     private static Game game;
 
-    public GameScreen(Game game){
-        gameStage = new GameStage();
+    public GameScreen(Game game ,String levelName){
+        gameStage = new GameStage(levelName);
         hudStage = new HudStage();
 
         this.game = game;
-
     }
 
     @Override

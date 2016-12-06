@@ -66,9 +66,14 @@ public class GameStage extends Stage implements ContactListener {
     private int score = 0;
     private Texture explosionTexture;
 
+    private String levelName;
+
     /**Constructor*/
-    public GameStage(){
+    public GameStage(String levelName){
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT));
+
+        this.levelName = levelName;
+
         setupCamera();
         setupWorld();
     }
@@ -97,20 +102,20 @@ public class GameStage extends Stage implements ContactListener {
 
     /**Load the tile map, initiate the tilemap renderer and get the maps's "wall" elements*/
     private void setupMap() {
-        map = new TmxMapLoader().load("map/level1.tmx");
+        map = new TmxMapLoader().load("map/" + levelName + ".tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Constants.WORLD_TO_SCREEN);
         collisionLayer = (TiledMapTileLayer)map.getLayers().get("walls");
-        _createBox2DObjects();
+        _createBox2DObjects(collisionLayer, Constants.TILED_LAYER_WALLS);
     }
 
     /**Create a Box2D Object for every cell in the tilemap layer(collision)*/
-    private void _createBox2DObjects() {
-        tileSize = collisionLayer.getTileWidth();
+    private void _createBox2DObjects(TiledMapTileLayer tiledMapTileLayer,int tileMode) {
+        tileSize = tiledMapTileLayer.getTileWidth();
         //Go through all the cells in the tilemap layer
-        for(int row = 0, height = collisionLayer.getHeight(); row < height; row++){
-            for(int col = 0, width = collisionLayer.getWidth(); col < width; col++){
+        for(int row = 0, height = tiledMapTileLayer.getHeight(); row < height; row++){
+            for(int col = 0, width = tiledMapTileLayer.getWidth(); col < width; col++){
                 //Get the current cell
-                Cell cell = collisionLayer.getCell(col, row);
+                Cell cell = tiledMapTileLayer.getCell(col, row);
 
                 //CHeck if the cell exists
                 if(cell == null) continue;
@@ -132,11 +137,26 @@ public class GameStage extends Stage implements ContactListener {
                 FixtureDef fDef = new FixtureDef();
                 fDef.friction = 0;
                 fDef.shape = cs;
+
                 fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
                 fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_PROJECTILE_BITS;
+                /*
+                switch (tileMode){
+                    case Constants.TILED_LAYER_WALLS:{
+                        fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
+                        fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_PROJECTILE_BITS;
+                        System.out.print("WALLS");
+                    }
+                    case Constants.TILED_LAYER_HAZARDS:{
+                        fDef.filter.categoryBits = Constants.COLLISION_HAZARDS_BITS;
+                        fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS;
+                    }
+                }*/
                 fDef.isSensor = false;
                 Body body = world.createBody(bDef);
+
                 body.setUserData(new GroundUserData(tileSize, tileSize));
+
                 body.createFixture(fDef);
             }
         }
@@ -275,7 +295,7 @@ public class GameStage extends Stage implements ContactListener {
             runner.hit();
         }else if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
-            runner.landed();
+            landed();
         }else if(BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsProjectile(b)){
             /**SOLUTION 1
              * Destroy projectiles on ground collision
@@ -339,6 +359,11 @@ public class GameStage extends Stage implements ContactListener {
         Body projectileBody = WorldUtils.createProjectile(world, runner.getPosition().x + Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, runner.getPosition().y + Constants.RUNNER_HEIGHT / Constants.WORLD_TO_SCREEN, runner.getFacingLeft(), runner.getShootMode());
         Projectile projectile = new Projectile(projectileBody, runner.getFacingLeft(), (ProjectileUserData) projectileBody.getUserData());
         addActor(projectile);
+    }
+
+    /**Reset the jump state of the runner/player*/
+    public void landed(){
+        runner.landed();
     }
 
     @Override

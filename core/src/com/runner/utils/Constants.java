@@ -20,6 +20,7 @@ public class Constants {
     public static final int COLLISION_WALL_BITS = 4;
     public static final short COLLISION_ENEMY_BITS = 8;
     public static final short COLLISION_PROJECTILE_BITS = 16;
+    public static final short COLLISION_HAZARDS_BITS = 32;
 
     public static final float GROUND_X = 0;
     public static final float GROUND_Y = 0;
@@ -35,6 +36,7 @@ public class Constants {
     public static float PLAYER_STAMP = 0.89f;
     public static final float RUNNER_SPEED_MAX = 5f;    //The max speed of the player
     public static final float RUNNER_SPEED_STEP = 1f;   //The amount the players speed increases per button click
+    public static final float RUNNER_JUMP_DELAY = 1/8f;
     public static float RUNNER_DENSITY = 0.5f;
     public static final float RUNNER_DODGE_X = 2f;
     public static final float RUNNER_DODGE_Y = 1.5f;
@@ -112,6 +114,15 @@ public class Constants {
     public static final float UI_BUTTON_SWITCH_Y = APP_HEIGTH / 4;
     public static final float UI_TOUCHPAD_JUMP_SENSITY = 0.5f;  //0: Player always jumps; 1: Player jumps only when joystick is pointing exactly to top
     public static final float UI_TOUCHPAD_DODGE_SENSITY = -0.9f;     //0: Player always dodges; 1: Player dodges only when joystick is pointing exactly to bottom
+
+    public static final float LEVEL_SELECT_PADDING_TOP = 10f;
+    public static final float LEVEL_SELECT_PADDING_BOT = 10f;
+    public static final float LEVEL_SELECT_PADDING_SIDE = 60f;
+    public static final String[] LEVEL_SELECT_LEVEL_NAMES = new String[] {"Mario Bros lvl. 1", "level 2", "level 3", "level 4", "level 5", "level 6", "level 7", "level 8", "level 9"};
+    public static final String[] LEVEL_SELECT_LEVEL_IMAGES_PATHS = new String[] {"level/ground.png", "level/farbkombi.JPG", "level/explosion.png", "level/ground.png", "level/farbkombi.JPG", "level/explosion.png", "level/ground.png", "level/farbkombi.JPG", "level/explosion.png"};
+
+    public static final int TILED_LAYER_WALLS = 0;
+    public static final int TILED_LAYER_HAZARDS = 1;
 
     public static final String CHARACTERS_ATLAS_PATH = "characters.txt";
     public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"alienGreen_run1", "alienGreen_run2"};

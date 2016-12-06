@@ -24,9 +24,12 @@ public class IntroScreen extends AbstractScreen{
     TextureRegion intro;
     SpriteBatch batch;
     float time = 0;
+    private String levelName;
 
-    public IntroScreen(Game game){
+    public IntroScreen(Game game, String levelName){
         super(game);
+
+        this.levelName = levelName;
 
         intro = new TextureRegion(new Texture(Gdx.files.internal(Constants.INTRO_IMAGE_PATH)));
         batch = new SpriteBatch();
@@ -58,7 +61,7 @@ public class IntroScreen extends AbstractScreen{
         time += delta;
         if(time > 1){
             if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()){
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game, levelName));
             }
         }
     }
