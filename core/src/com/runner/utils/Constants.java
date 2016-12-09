@@ -36,11 +36,11 @@ public class Constants {
     public static float PLAYER_STAMP = 0.89f;
     public static final float RUNNER_SPEED_MAX = 5f;    //The max speed of the player
     public static final float RUNNER_SPEED_STEP = 1f;   //The amount the players speed increases per button click
-    public static final float RUNNER_JUMP_DELAY = 1/8f;
+    public static final float RUNNER_JUMP_DELAY = 1/3f;
     public static float RUNNER_DENSITY = 0.5f;
     public static final float RUNNER_DODGE_X = 2f;
     public static final float RUNNER_DODGE_Y = 1.5f;
-    public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 13f);
+    public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 17f);
     public static final Vector2 RUNNER_MOVE_RIGHT_LINEAR_IMPULSE = new Vector2(5f, 0f);
     public static final Vector2 RUNNER_MOVE_LEFT_LINEAR_IMPULSE = new Vector2(-5f, 0f);
     public static final float RUNNER_HIT_ANGULAR_IMPULSE = 10f;
@@ -75,10 +75,10 @@ public class Constants {
     public static final float PROJECTILE_BULLET_WIDTH = 20f;
     public static final float PROJECTILE_BULLET_HEIGHT = 5f;
     public static final String[] PROJECTILE_BULLET_REGION_NAMES = new String[] {"worm_walk1", "worm_walk2"};
-    public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_RIGHT = new Vector2(3f, -3);
+    public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_RIGHT = new Vector2(1f, 0f);
     public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_LEFT = new Vector2(-3f, -3);
     public static final float PROJECTILE_BOMB_DENSITY = 0.5f;
-    public static final float PROJECTILE_BOMB_GRAVITY_SCALE = 10f;
+    public static final float PROJECTILE_BOMB_GRAVITY_SCALE = 40f;
     public static final float PROJECTILE_BOMB_Y = 1f;
     public static final float PROJECTILE_BOMB_X = 1f;
     public static final float PROJECTILE_BOMB_WIDTH = 20f;

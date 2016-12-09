@@ -27,6 +27,7 @@ import com.runner.actors.Enemy;
 import com.runner.actors.Projectile;
 import com.runner.actors.Runner;
 import com.runner.box2d.GroundUserData;
+import com.runner.box2d.HazardUserData;
 import com.runner.box2d.ProjectileUserData;
 import com.runner.screens.GameScreen;
 import com.runner.utils.BodyUtils;
@@ -106,6 +107,8 @@ public class GameStage extends Stage implements ContactListener {
         renderer = new OrthogonalTiledMapRenderer(map, 1 / Constants.WORLD_TO_SCREEN);
         collisionLayer = (TiledMapTileLayer)map.getLayers().get("walls");
         _createBox2DObjects(collisionLayer, Constants.TILED_LAYER_WALLS);
+        collisionLayer = (TiledMapTileLayer)map.getLayers().get("hazards");
+        _createBox2DObjects(collisionLayer, Constants.TILED_LAYER_HAZARDS);
     }
 
     /**Create a Box2D Object for every cell in the tilemap layer(collision)*/
@@ -137,26 +140,32 @@ public class GameStage extends Stage implements ContactListener {
                 FixtureDef fDef = new FixtureDef();
                 fDef.friction = 0;
                 fDef.shape = cs;
-
-                fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
-                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_PROJECTILE_BITS;
-                /*
+                /**Set either wall or hazard collision bits*/
                 switch (tileMode){
                     case Constants.TILED_LAYER_WALLS:{
                         fDef.filter.categoryBits = Constants.COLLISION_WALL_BITS;
                         fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_PROJECTILE_BITS;
-                        System.out.print("WALLS");
+                        break;
                     }
                     case Constants.TILED_LAYER_HAZARDS:{
                         fDef.filter.categoryBits = Constants.COLLISION_HAZARDS_BITS;
                         fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS;
+                        break;
                     }
-                }*/
+                }
                 fDef.isSensor = false;
                 Body body = world.createBody(bDef);
-
-                body.setUserData(new GroundUserData(tileSize, tileSize));
-
+                /**Set either wall or hazard user data*/
+                switch (tileMode){
+                    case Constants.TILED_LAYER_WALLS:{
+                        body.setUserData(new GroundUserData(tileSize, tileSize));
+                        break;
+                    }
+                    case Constants.TILED_LAYER_HAZARDS:{
+                        body.setUserData(new HazardUserData(tileSize, tileSize));
+                        break;
+                    }
+                }
                 body.createFixture(fDef);
             }
         }
@@ -291,7 +300,9 @@ public class GameStage extends Stage implements ContactListener {
         Body b = contact.getFixtureB().getBody();
 
         if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
-                (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
+                (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b)) ||
+                (BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsHazard(b)) ||
+                (BodyUtils.bodyIsHazard(a) && BodyUtils.bodyIsRunner(b))) {
             runner.hit();
         }else if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {

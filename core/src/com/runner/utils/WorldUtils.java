@@ -61,7 +61,7 @@ public class WorldUtils {
         fDef.friction = 0;
         fDef.shape = shape;
         fDef.filter.categoryBits = Constants.COLLISION_PLAYER_BITS;
-        fDef.filter.maskBits = Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_HAZARDS_BITS;
         fDef.isSensor = false;
 
         Body body = world.createBody(bodyDef);

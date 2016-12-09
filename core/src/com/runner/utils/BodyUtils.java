@@ -44,4 +44,9 @@ public class BodyUtils {
         UserData userData = (UserData) body.getUserData();
         return userData != null && userData.getUserDataType() == UserDataType.PROJECTILE;
     }
+
+    public static boolean bodyIsHazard(Body body) {
+        UserData userData = (UserData) body.getUserData();
+        return userData != null && userData.getUserDataType() == UserDataType.HAZARD;
+    }
 }

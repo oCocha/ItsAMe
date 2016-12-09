@@ -8,5 +8,6 @@ public enum UserDataType {
     GROUND,
     RUNNER,
     ENEMY,
-    PROJECTILE
+    PROJECTILE,
+    HAZARD
 }
