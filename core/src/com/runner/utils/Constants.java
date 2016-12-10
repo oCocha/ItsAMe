@@ -45,6 +45,8 @@ public class Constants {
     public static final Vector2 RUNNER_MOVE_RIGHT_LINEAR_IMPULSE = new Vector2(5f, 0f);
     public static final Vector2 RUNNER_MOVE_LEFT_LINEAR_IMPULSE = new Vector2(-5f, 0f);
     public static final float RUNNER_HIT_ANGULAR_IMPULSE = 10f;
+    public static final float RUNNER_PROJECTILE_HIT_MULTI_X = 10000f;
+    public static final float RUNNER_PROJECTILE_HIT_MULTI_Y = 20000f;
 
     public static final float ENEMY_X = 25f;
     public static final float ENEMY_DENSITY = RUNNER_DENSITY;

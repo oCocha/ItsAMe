@@ -92,7 +92,7 @@ public class GameStage extends Stage implements ContactListener {
         setUpRunner();
         setupOpponents();
         setupTextures();
-        createEnemy(Constants.ENEMY_X);
+        //createEnemy(Constants.ENEMY_X);
     }
 
     /**Initiate textures for later use*/
@@ -251,8 +251,8 @@ public class GameStage extends Stage implements ContactListener {
         }
 
         /**Create a new enemy object if the world contains no enemy objects*/
-        if(noEnemy == true)
-            createEnemy(runner.getPosition().x + camera.viewportWidth / 2);
+        //if(noEnemy == true)
+        //    createEnemy(runner.getPosition().x + camera.viewportWidth / 2);
 
         /**Destroy all bodies that were saved in the destroylist
          * Add an explosion to the explodeList for every body that gets destroyed*/
@@ -312,6 +312,14 @@ public class GameStage extends Stage implements ContactListener {
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
+        /**Check for collisions
+         * player/enemy
+         * player/hazard
+         * ground/runner
+         * ground/projectile
+         * enemy/projectile
+         * enemy/mine
+         * mine/player*/
         if((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
                 (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b)) ||
                 (BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsHazard(b)) ||
@@ -321,31 +329,9 @@ public class GameStage extends Stage implements ContactListener {
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
             landed();
         }else if(BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsProjectile(b)){
-            /**SOLUTION 1
-             * Destroy projectiles on ground collision
-             *
-            ProjectileUserData projectileUserData = (ProjectileUserData)b.getUserData();
-            projectileUserData.setDestroyed(true);
-            System.out.print("a");
-             */
-
-            /**SOLUTION 2
-             * Destroy projectiles on ground collision
-             */
             if(!destroyList.contains(b))
                 destroyList.add(b);
         }else if(BodyUtils.bodyIsGround(b) && BodyUtils.bodyIsProjectile(a)){
-            /**SOLUTION 1
-             * Destroy projectiles on ground collision
-             *
-            ProjectileUserData projectileUserData = (ProjectileUserData)a.getUserData();
-            projectileUserData.setDestroyed(true);
-            System.out.print("b");
-             */
-
-            /**SOLUTION 2
-             * Destroy projectiles on ground collision
-             */
             if(!destroyList.contains(a))
                 destroyList.add(a);
         }else if(BodyUtils.bodyIsEnemy(b) && BodyUtils.bodyIsProjectile(a) || BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsProjectile(b)){
@@ -364,7 +350,22 @@ public class GameStage extends Stage implements ContactListener {
                 score++;
                 setScore(score);
             }
+        }else if(BodyUtils.bodyIsOpponent(a) && BodyUtils.bodyIsProjectile(b)){
+            if(!destroyList.contains(b)){
+                destroyList.add(b);
+                projectileHit(a, b.getPosition());
+            }
+        }else if(BodyUtils.bodyIsOpponent(b) && BodyUtils.bodyIsProjectile(a)){
+            if(!destroyList.contains(a)){
+                destroyList.add(a);
+                projectileHit(b, a.getPosition());
+            }
         }
+    }
+
+    private void projectileHit(Body body, Vector2 forcePosition) {
+        body.applyForceToCenter((body.getPosition().x - forcePosition.x) * Constants.RUNNER_PROJECTILE_HIT_MULTI_X,(body.getPosition().y - forcePosition.y) * Constants.RUNNER_PROJECTILE_HIT_MULTI_Y, true);
+        System.out.print("x: "+(body.getPosition().x - forcePosition.x)+"   y: "+(body.getPosition().y - forcePosition.y)+" --- ");
     }
 
     @Override
