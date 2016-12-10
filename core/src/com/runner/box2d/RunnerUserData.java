@@ -30,6 +30,10 @@ public class RunnerUserData extends UserData{
         this.jumpingLinearImpulse = jumpingLinearImpulse;
     }
 
+    public void setOpponent(){
+        this.userDataType = UserDataType.OPPONENT;
+    }
+
     public float getDodgeAngle(){
         return (float) (-90f * (Math.PI / 180f));
     }

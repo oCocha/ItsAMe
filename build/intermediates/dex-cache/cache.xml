@@ -12,6 +12,51 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Android\Projekte\ItsAMe\android\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="78d0052069639782ab48b3172d517d5f91a0375d">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\instant-run-bootstrap_9c55c43cddb42702756631b145d4fa70f519b8ea.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.9.4\98a0d25c9f0637fecac6e4aacf7287aa635964f5\gdx-box2d-1.9.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98a0d25c9f0637fecac6e4aacf7287aa635964f5">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-box2d-1.9.4_1bbdb294782977996c176244e6316848cf6aa4bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.4\4b4b7962d1bc75af0438f5c81ec1010557bc9ee5\gdx-1.9.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4b4b7962d1bc75af0438f5c81ec1010557bc9ee5">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-1.9.4_01848c9716d764b239e7138b50c69defff1f28b5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.4\194b33382d6d58fad031521ba3331d926c476c9b\gdx-backend-android-1.9.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="194b33382d6d58fad031521ba3331d926c476c9b">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.4_99689bd7d2ae696e5daa81a17244bbccdfe88227.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.4\194b33382d6d58fad031521ba3331d926c476c9b\gdx-backend-android-1.9.4.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="194b33382d6d58fad031521ba3331d926c476c9b">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.4_99689bd7d2ae696e5daa81a17244bbccdfe88227.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.9.4\98a0d25c9f0637fecac6e4aacf7287aa635964f5\gdx-box2d-1.9.4.jar"
         jumboMode="true"
         optimize="true"
@@ -27,24 +72,6 @@
         revision="25.0.0"
         sha1="ad72cf50a43e3dda7cfd0b95774e43215c157644">
         <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\instant-run_9416704695c1c9975c40ba657f8e85a769d81981.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Android\Projekte\ItsAMe\android\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="78d0052069639782ab48b3172d517d5f91a0375d">
-        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\instant-run-bootstrap_9c55c43cddb42702756631b145d4fa70f519b8ea.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.4\194b33382d6d58fad031521ba3331d926c476c9b\gdx-backend-android-1.9.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="194b33382d6d58fad031521ba3331d926c476c9b">
-        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.4_99689bd7d2ae696e5daa81a17244bbccdfe88227.jar" />
     </item>
 
 </items>

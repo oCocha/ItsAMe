@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.runner.actors.Background;
 import com.runner.actors.Enemy;
+import com.runner.actors.Player;
 import com.runner.actors.Projectile;
 import com.runner.actors.Runner;
 import com.runner.box2d.GroundUserData;
@@ -46,7 +47,8 @@ public class GameStage extends Stage implements ContactListener {
     private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGTH / (int)Constants.WORLD_TO_SCREEN;
 
     private World world;
-    public Runner runner;
+    public Player runner;
+    private Runner opponent;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
@@ -84,10 +86,11 @@ public class GameStage extends Stage implements ContactListener {
     private void setupWorld() {
         world = WorldUtils.createWorld();
         world.setContactListener(this);
-        setupDebugRenderer();
+        //setupDebugRenderer();
         setupMap();
         setupBackGround();
         setUpRunner();
+        setupOpponents();
         setupTextures();
         createEnemy(Constants.ENEMY_X);
     }
@@ -186,8 +189,15 @@ public class GameStage extends Stage implements ContactListener {
 
     /**Create a new runner/player object and add it to the game stage*/
     private void setUpRunner() {
-        runner = new Runner(WorldUtils.createRunner(world));
+        runner = new Player(WorldUtils.createRunner(world));
         addActor(runner);
+    }
+
+    /**Create the opponent objects and add them to the game stage*/
+    private void setupOpponents() {
+        opponent = new Runner(WorldUtils.createRunner(world));
+        opponent.getUserData().setOpponent();
+        addActor(opponent);
     }
 
     /**Create a new camera and set its position to the middle of the stage*/
@@ -225,7 +235,7 @@ public class GameStage extends Stage implements ContactListener {
         renderer.render();
 
         /**Render the bodies/fixtures of the box2d objects*/
-        debugRenderer.render(world, camera.combined);
+        //debugRenderer.render(world, camera.combined);
 
         /**Draw an explosion for every Vector2 in the explosionList*/
         for(Vector2 explosion : explodeList){
@@ -392,6 +402,6 @@ public class GameStage extends Stage implements ContactListener {
     public void dispose(){
         map.dispose();
         renderer.dispose();
-        debugRenderer.dispose();
+        //debugRenderer.dispose();
     }
 }
