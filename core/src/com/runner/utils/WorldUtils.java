@@ -127,7 +127,7 @@ public class WorldUtils {
         body.setGravityScale(projectileType.getGravity());
         body.createFixture(fDef);
         body.resetMassData();
-        ProjectileUserData userData = new ProjectileUserData(projectileType.getWidth(), projectileType.getHeight(), projectileType.getRegions(), facingLeft, projectileType.getLinearVelocity());
+        ProjectileUserData userData = new ProjectileUserData(shootMode, projectileType.getWidth(), projectileType.getHeight(), projectileType.getRegions(), facingLeft, projectileType.getLinearVelocity());
         body.setUserData(userData);
         shape.dispose();
         return body;

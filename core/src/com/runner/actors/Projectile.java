@@ -23,6 +23,7 @@ public class Projectile extends GameActor {
     private boolean facingLeft;
 
     private ProjectileUserData projectileUserData;
+    private float accumulator;
 
     public Projectile(Body body, boolean facingLeft, ProjectileUserData projectileUserData){
         super(body);
@@ -48,12 +49,30 @@ public class Projectile extends GameActor {
     @Override
     public void act(float delta){
         super.act(delta);
-        if(facingLeft == true){
-            Vector2 tempVelocity = new Vector2(-getUserData().getLinearVelocity().x, getUserData().getLinearVelocity().y);
-            body.setLinearVelocity(tempVelocity);
-        }
-        else{
-            body.setLinearVelocity(getUserData().getLinearVelocity());
+
+        /**Handle movement for each kind of projectile*/
+        switch (projectileUserData.getProjectileMode()){
+            case 0:
+                if(facingLeft == true){
+                 Vector2 tempVelocity = new Vector2(-projectileUserData.getLinearVelocity().x, projectileUserData.getLinearVelocity().y);
+                 body.setLinearVelocity(tempVelocity);
+                 }
+                 else{
+                 body.setLinearVelocity(projectileUserData.getLinearVelocity());
+                 }
+                break;
+            case 1:
+                if(facingLeft == true){
+                    while (accumulator < Constants.BOMB_MOVEMENT_DURATION) {
+                        accumulator += delta;
+                        body.applyForceToCenter(-Constants.PROJECTILE_BOMB_FORCE_X, Constants.PROJECTILE_BOMB_FORCE_Y,true);
+                    }
+                }
+                else{
+                    while (accumulator < Constants.BOMB_MOVEMENT_DURATION) {
+                        accumulator += delta;
+                        body.applyForceToCenter(Constants.PROJECTILE_BOMB_FORCE_X, Constants.PROJECTILE_BOMB_FORCE_Y,true);
+                    }                }
         }
     }
 

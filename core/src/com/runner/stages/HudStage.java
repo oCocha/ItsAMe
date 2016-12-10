@@ -28,6 +28,8 @@ import com.runner.screens.GameScreen;
 import com.runner.utils.Constants;
 import com.sun.org.apache.bcel.internal.classfile.ConstantNameAndType;
 
+import java.math.BigDecimal;
+
 /**
  * Created by bob on 02.12.16.
  */
@@ -55,6 +57,9 @@ public class HudStage extends Stage {
     private Label itsAMeLabel;
     private Label shootLabel;
     private Label scoreLabel;
+    private Label timeLabel;
+
+    private float timer = 0;
 
     private MyButton bombButton;
 
@@ -81,12 +86,15 @@ public class HudStage extends Stage {
         itsAMeLabel = new Label("Its a Me!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         shootLabel = new Label("BULLET", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label("Score: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        timeLabel = new Label("Time: 0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(itsAMeLabel).expandX().padTop(10);
         table.add(scoreLabel).expandX();
         table.row();
         table.add(levelLabel).expandX();
         table.add(shootLabel).expandX();
+        table.row();
+        table.add(timeLabel).expandX();
 
         addActor(table);
     }
@@ -141,9 +149,15 @@ public class HudStage extends Stage {
         if (touchpad.isTouched())
             GameScreen.gameStage.runner.move(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
 
+        updateButtons(delta);
         renderButtons();
 
         //TODO: Implement interpolation
+    }
+
+    private void updateButtons(float delta) {
+        timer += delta;
+        timeLabel.setText("Time: " + _round(timer, 2));
     }
 
     private void renderButtons() {
@@ -217,8 +231,14 @@ public class HudStage extends Stage {
         getCamera().unproject(touchPoint.set(x, y, 0));
     }
 
+    public static float _round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
+
     public void setScore(int score){
-        scoreLabel.setText("SCORE: " + score);
+        scoreLabel.setText("Score: " + score);
     }
 
     @Override

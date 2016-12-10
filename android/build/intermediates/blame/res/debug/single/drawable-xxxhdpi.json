@@ -1,14 +1,18 @@
 [
     {
-        "merged": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
-        "source": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
+        "merged": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
+        "source": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
-        "source": "C:\\Android\\Projekte\\ItsAMe\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
+        "merged": "/home/bob/Android/libGDX/ItsAMe/C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
+        "source": "/home/bob/Android/libGDX/ItsAMe/C:\\Android\\Projekte\\ItsAMe\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
-        "source": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
+        "merged": "/home/bob/Android/libGDX/ItsAMe/android/build/intermediates/res/merged/debug/drawable-xxxhdpi/ic_launcher.png",
+        "source": "/home/bob/Android/libGDX/ItsAMe/android/res/drawable-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi\\ic_launcher.png",
+        "source": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\drawable-xxxhdpi\\ic_launcher.png"
     }
 ]

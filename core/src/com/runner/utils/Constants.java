@@ -78,11 +78,14 @@ public class Constants {
     public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_RIGHT = new Vector2(1f, 0f);
     public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_LEFT = new Vector2(-3f, -3);
     public static final float PROJECTILE_BOMB_DENSITY = 0.5f;
-    public static final float PROJECTILE_BOMB_GRAVITY_SCALE = 40f;
+    public static final float PROJECTILE_BOMB_GRAVITY_SCALE = 6f;
+    public static final float PROJECTILE_BOMB_FORCE_X = 2000f;
+    public static final float PROJECTILE_BOMB_FORCE_Y = 2000f;
     public static final float PROJECTILE_BOMB_Y = 1f;
     public static final float PROJECTILE_BOMB_X = 1f;
     public static final float PROJECTILE_BOMB_WIDTH = 20f;
     public static final float PROJECTILE_BOMB_HEIGHT = 20f;
+    public static final float BOMB_MOVEMENT_DURATION = 1/3000f;
     public static final String[] PROJECTILE_BOMB_REGION_NAMES = new String[] {"ladyBug_walk1", "ladyBug_walk2"};
 
     public static final String LOGO_IMAGE_PATH = "screens/logo.png";

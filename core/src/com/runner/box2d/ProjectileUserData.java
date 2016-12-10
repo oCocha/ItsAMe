@@ -10,6 +10,7 @@ import com.runner.utils.Constants;
 
 public class ProjectileUserData extends UserData{
 
+    private int projectileMode;
     private Vector2 bulletLinearVelocityRight;
     private Vector2 bulletLinearVelocityLeft;
     private Vector2 bombLinearVelocityRight;
@@ -19,16 +20,21 @@ public class ProjectileUserData extends UserData{
 
     private boolean destroyed;
 
-    public ProjectileUserData(float width, float height, String[] textureRegions, boolean facingLeft, Vector2 linearVelocity){
+    public ProjectileUserData(int projectileMode, float width, float height, String[] textureRegions, boolean facingLeft, Vector2 linearVelocity){
         super(width, height);
         userDataType = UserDataType.PROJECTILE;
         bulletLinearVelocityRight = Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT;
         bulletLinearVelocityLeft= Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT;
         bombLinearVelocityRight = Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT;
         bombLinearVelocityLeft= Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT;
+        this.projectileMode = projectileMode;
         this.textureRegions = textureRegions;
         this.linearVelocity = linearVelocity;
         destroyed = false;
+    }
+
+    public int getProjectileMode(){
+        return projectileMode;
     }
 
     public void setLinearVelocityRight(Vector2 linearVelocity){
