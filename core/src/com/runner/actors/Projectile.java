@@ -29,7 +29,7 @@ public class Projectile extends GameActor {
         super(body);
 
         this.projectileUserData = projectileUserData;
-        TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
+        TextureAtlas textureAtlas = new TextureAtlas(Constants.PROJECTILES_ATLAS_PATH);
         TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().length];
         for(int i = 0; i < getUserData().getTextureRegions().length; i++){
             String path = getUserData().getTextureRegions()[i];
@@ -72,7 +72,8 @@ public class Projectile extends GameActor {
                     while (accumulator < Constants.BOMB_MOVEMENT_DURATION) {
                         accumulator += delta;
                         body.applyForceToCenter(Constants.PROJECTILE_BOMB_FORCE_X, Constants.PROJECTILE_BOMB_FORCE_Y,true);
-                    }                }
+                    }
+                }
         }
     }
 
@@ -80,6 +81,6 @@ public class Projectile extends GameActor {
     public void draw(Batch batch, float parentAlpha){
         super.draw(batch, parentAlpha);
         stateTime += Gdx.graphics.getDeltaTime();
-        batch.draw(animation.getKeyFrame(stateTime, true), (screenRectangle.x - (screenRectangle.width * 0.1f)), screenRectangle.y, screenRectangle.width * 1.2f, screenRectangle.height * 1.1f);
+        batch.draw(animation.getKeyFrame(stateTime, true), facingLeft ? screenRectangle.x + screenRectangle.width : (screenRectangle.x - (screenRectangle.width * 0.1f)), screenRectangle.y, facingLeft ? -screenRectangle.width * 1.2f : screenRectangle.width * 1.2f, screenRectangle.height * 1.1f);
     }
 }

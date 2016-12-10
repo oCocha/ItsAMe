@@ -1,0 +1,40 @@
+projectiles.png
+size: 64, 256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bomb_black1
+  rotate: false
+  xy: 0, 0
+  size: 64, 83
+  orig: 64, 83
+  offset: 0, 0
+  index: -1
+bomb_black2
+  rotate: false
+  xy: 0, 83
+  size: 64, 83
+  orig: 64, 83
+  offset: 0, 0
+  index: -1
+mine
+  rotate: false
+  xy: 0, 166
+  size: 64, 26
+  orig: 64, 26
+  offset: 0, 0
+  index: -1
+rocket_green1
+  rotate: false
+  xy: 0, 192
+  size: 64, 27
+  orig: 64, 27
+  offset: 0, 0
+  index: -1
+rocket_green2
+  rotate: false
+  xy: 0, 219
+  size: 64, 27
+  orig: 64, 27
+  offset: 0, 0
+  index: -1

@@ -61,7 +61,7 @@ public class WorldUtils {
         fDef.friction = 0;
         fDef.shape = shape;
         fDef.filter.categoryBits = Constants.COLLISION_PLAYER_BITS;
-        fDef.filter.maskBits = Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_HAZARDS_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_HAZARDS_BITS | Constants.COLLISION_PROJECTILE_BITS;
         fDef.isSensor = false;
 
         Body body = world.createBody(bodyDef);
@@ -109,9 +109,9 @@ public class WorldUtils {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         if(facingLeft == true){
-            bodyDef.position.set(new Vector2(spawnX - Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN, spawnY));
+            bodyDef.position.set(new Vector2(shootMode == 2 ? spawnX + projectileType.getWidth() : spawnX - Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN - projectileType.getWidth(), spawnY));
         }else{
-            bodyDef.position.set(new Vector2(spawnX + projectileType.getWidth(), spawnY));
+            bodyDef.position.set(new Vector2(shootMode == 2 ? spawnX - Constants.RUNNER_WIDTH / Constants.WORLD_TO_SCREEN - projectileType.getWidth() : spawnX + projectileType.getWidth(), spawnY));
         }
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(projectileType.getWidth() / 2, projectileType.getHeight() / 2);
@@ -120,7 +120,20 @@ public class WorldUtils {
         fDef.friction = 0;
         fDef.shape = shape;
         fDef.filter.categoryBits = Constants.COLLISION_PROJECTILE_BITS;
-        fDef.filter.maskBits = Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS;
+        fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS;
+        /**Set either projectile or mine collision bits*//**Unnötig?????
+        switch (shootMode){
+            case 2:{
+                fDef.filter.categoryBits = Constants.COLLISION_MINE_BITS;
+                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_PROJECTILE_BITS;
+                break;
+            }
+            default:{
+                fDef.filter.categoryBits = Constants.COLLISION_PROJECTILE_BITS;
+                fDef.filter.maskBits = Constants.COLLISION_PLAYER_BITS | Constants.COLLISION_WALL_BITS | Constants.COLLISION_ENEMY_BITS | Constants.COLLISION_MINE_BITS;
+                break;
+            }
+        }*/
         fDef.isSensor = false;
 
         Body body = world.createBody(bodyDef);

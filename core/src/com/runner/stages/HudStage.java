@@ -207,7 +207,8 @@ public class HudStage extends Stage {
     }
 
     private void toggleShootMode(){
-        if(GameScreen.gameStage.runner.getShootMode() == 1){
+        /**ALT
+         * if(GameScreen.gameStage.runner.getShootMode() == 1){
             GameScreen.gameStage.runner.setShootMode(0);
             switchModeBackground = new Texture("ui/buttons/shootButton.png");
             shootLabel.setText("BULLET");
@@ -216,7 +217,14 @@ public class HudStage extends Stage {
             GameScreen.gameStage.runner.setShootMode(1);
             switchModeBackground = new Texture("ui/buttons/bombButton.png");
             shootLabel.setText("BOMB");
-        }
+        }*/
+        Integer tempShootMode = GameScreen.gameStage.runner.getShootMode();
+        tempShootMode++;
+        if(tempShootMode == 3)
+            tempShootMode = 0;
+        GameScreen.gameStage.runner.setShootMode(tempShootMode);
+        switchModeBackground = new Texture(Constants.PROJECTILES_BUTTONS[tempShootMode]);
+        shootLabel.setText(Constants.PROJECTILES_NAMES[tempShootMode]);
     }
 
     private boolean _shootButtonTouched(float x, float y){

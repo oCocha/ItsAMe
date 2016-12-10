@@ -29,6 +29,7 @@ import com.runner.actors.Runner;
 import com.runner.box2d.GroundUserData;
 import com.runner.box2d.HazardUserData;
 import com.runner.box2d.ProjectileUserData;
+import com.runner.box2d.UserData;
 import com.runner.screens.GameScreen;
 import com.runner.utils.BodyUtils;
 import com.runner.utils.Constants;
@@ -248,6 +249,8 @@ public class GameStage extends Stage implements ContactListener {
         while(destroyList.size() != 0){
             if(!world.isLocked()){
                 Body tempBody = destroyList.get(0);
+                if(BodyUtils.bodyIsRunner(tempBody))
+                    runner.hit();
                 explodeList.add(new Vector2(tempBody.getPosition().x, tempBody.getPosition().y));
                 tempBody  = null;
                 world.destroyBody(destroyList.get(0));
@@ -336,6 +339,14 @@ public class GameStage extends Stage implements ContactListener {
             if(!destroyList.contains(a))
                 destroyList.add(a);
         }else if(BodyUtils.bodyIsEnemy(b) && BodyUtils.bodyIsProjectile(a) || BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsProjectile(b)){
+            if(!destroyList.contains(a) && !destroyList.contains(b)){
+                destroyList.add(a);
+                destroyList.add(b);
+                noEnemy = true;
+                score++;
+                setScore(score);
+            }
+        }else if(BodyUtils.bodyIsEnemy(b) && BodyUtils.bodyIsMine(a) || BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsMine(b) || BodyUtils.bodyIsRunner(b) && BodyUtils.bodyIsMine(a) || BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsMine(b)){
             if(!destroyList.contains(a) && !destroyList.contains(b)){
                 destroyList.add(a);
                 destroyList.add(b);

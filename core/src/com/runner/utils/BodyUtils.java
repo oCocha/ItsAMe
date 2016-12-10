@@ -49,4 +49,9 @@ public class BodyUtils {
         UserData userData = (UserData) body.getUserData();
         return userData != null && userData.getUserDataType() == UserDataType.HAZARD;
     }
+
+    public static boolean bodyIsMine(Body body) {
+        UserData userData = (UserData) body.getUserData();
+        return userData != null && userData.getUserDataType() == UserDataType.MINE;
+    }
 }

@@ -9,5 +9,6 @@ public enum UserDataType {
     RUNNER,
     ENEMY,
     PROJECTILE,
+    MINE,
     HAZARD
 }

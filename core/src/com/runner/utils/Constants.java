@@ -21,6 +21,7 @@ public class Constants {
     public static final short COLLISION_ENEMY_BITS = 8;
     public static final short COLLISION_PROJECTILE_BITS = 16;
     public static final short COLLISION_HAZARDS_BITS = 32;
+    public static final short COLLISION_MINE_BITS = 64;
 
     public static final float GROUND_X = 0;
     public static final float GROUND_Y = 0;
@@ -65,16 +66,16 @@ public class Constants {
 
     public static final int DEFAULT_SHOOT_MODE = 0;
 
-    public static final float PROJECTILE_GRAVITY_SCALE = 5f;
-    public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT = new Vector2(20f, 0);
-    public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT = new Vector2(-20f, 0);
+    public static final String[] PROJECTILES_BUTTONS = new String[] {"ui/buttons/shootButton.png", "ui/buttons/bombButton.png", "ui/buttons/mineButton.png"};
+    public static final String[] PROJECTILES_NAMES = new String[] {"BULLET", "BOMB", "MINE"};
+    public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT = new Vector2(10f, 0);
+    public static final Vector2 PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT = new Vector2(-10f, 0);
     public static final float PROJECTILE_BULLET_DENSITY = 0.5f;
     public static final float PROJECTILE_BULLET_GRAVITY_SCALE = 1f;
     public static final float PROJECTILE_BULLET_Y = 1f;
     public static final float PROJECTILE_BULLET_X = 1f;
     public static final float PROJECTILE_BULLET_WIDTH = 20f;
     public static final float PROJECTILE_BULLET_HEIGHT = 5f;
-    public static final String[] PROJECTILE_BULLET_REGION_NAMES = new String[] {"worm_walk1", "worm_walk2"};
     public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_RIGHT = new Vector2(1f, 0f);
     public static final Vector2 PROJECTILE_BOMB_LINEAR_VELOCITY_LEFT = new Vector2(-3f, -3);
     public static final float PROJECTILE_BOMB_DENSITY = 0.5f;
@@ -86,7 +87,21 @@ public class Constants {
     public static final float PROJECTILE_BOMB_WIDTH = 20f;
     public static final float PROJECTILE_BOMB_HEIGHT = 20f;
     public static final float BOMB_MOVEMENT_DURATION = 1/3000f;
-    public static final String[] PROJECTILE_BOMB_REGION_NAMES = new String[] {"ladyBug_walk1", "ladyBug_walk2"};
+    public static final Vector2 PROJECTILE_MINE_LINEAR_VELOCITY_RIGHT = new Vector2(1f, 0f);
+    public static final Vector2 PROJECTILE_MINE_LINEAR_VELOCITY_LEFT = new Vector2(-3f, -3);
+    public static final float PROJECTILE_MINE_DENSITY = 0.5f;
+    public static final float PROJECTILE_MINE_GRAVITY_SCALE = 6f;
+    public static final float PROJECTILE_MINE_FORCE_X = 2000f;
+    public static final float PROJECTILE_MINE_FORCE_Y = 2000f;
+    public static final float PROJECTILE_MINE_Y = 1f;
+    public static final float PROJECTILE_MINE_X = 1f;
+    public static final float PROJECTILE_MINE_WIDTH = 20f;
+    public static final float PROJECTILE_MINE_HEIGHT = 20f;
+    public static final float MINE_MOVEMENT_DURATION = 1/3000f;
+    public static final String PROJECTILES_ATLAS_PATH = "projectiles/projectiles.txt";
+    public static final String[] PROJECTILE_BULLET_REGION_NAMES = new String[] {"rocket_green1", "rocket_green2"};
+    public static final String[] PROJECTILE_BOMB_REGION_NAMES = new String[] {"bomb_black1", "bomb_black2"};
+    public static final String[] PROJECTILE_MINE_REGION_NAMES = new String[] {"mine"};
 
     public static final String LOGO_IMAGE_PATH = "screens/logo.png";
     public static final String MAINMENU_IMAGE_PATH = "screens/title.png";

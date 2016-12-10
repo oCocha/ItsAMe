@@ -22,7 +22,11 @@ public class ProjectileUserData extends UserData{
 
     public ProjectileUserData(int projectileMode, float width, float height, String[] textureRegions, boolean facingLeft, Vector2 linearVelocity){
         super(width, height);
-        userDataType = UserDataType.PROJECTILE;
+        if(projectileMode == 2){
+            userDataType = UserDataType.MINE;
+        }else{
+            userDataType = UserDataType.PROJECTILE;
+        }
         bulletLinearVelocityRight = Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT;
         bulletLinearVelocityLeft= Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_LEFT;
         bombLinearVelocityRight = Constants.PROJECTILE_BULLET_LINEAR_VELOCITY_RIGHT;

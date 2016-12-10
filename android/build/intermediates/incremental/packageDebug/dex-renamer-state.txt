@@ -1,4 +1,4 @@
-#Sat Dec 10 01:04:01 CET 2016
-base.0=/home/bob/Android/libGDX/ItsAMe/android/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+#Sat Dec 10 20:20:57 CET 2016
+base.0=C\:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
-file.0=/home/bob/Android/libGDX/ItsAMe/android/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
+file.0=C\:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
