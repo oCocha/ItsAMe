@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="78d0052069639782ab48b3172d517d5f91a0375d">
+        sha1="823d2798fadf44f123865358f4baa4b253c5592e">
         <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\instant-run-bootstrap_9c55c43cddb42702756631b145d4fa70f519b8ea.jar" />
     </item>
     <item

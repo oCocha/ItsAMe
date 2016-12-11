@@ -107,7 +107,10 @@ public class LevelSelect extends AbstractScreen {
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                /**OHNE MULTIPLAYER
                 game.setScreen(new IntroScreen(game, levelLabel.getText().toString()));
+                 */
+                game.setScreen(new SearchEnemyScreen(game, levelLabel.getText().toString()));
             }
         });
         playButton.setTouchable(Touchable.disabled);
