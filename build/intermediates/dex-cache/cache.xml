@@ -30,6 +30,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Android\Projekte\ItsAMe\android\libs\json-org.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d78566b67be139b182eb701e4710b549af4ff79d">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\json-org_d13f6e0269abff84899f8969e6b6c66a8c209cca.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\oCocha\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.4\4b4b7962d1bc75af0438f5c81ec1010557bc9ee5\gdx-1.9.4.jar"
         jumboMode="false"
         optimize="true"
@@ -54,6 +63,15 @@
         revision="25.0.0"
         sha1="194b33382d6d58fad031521ba3331d926c476c9b">
         <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.4_99689bd7d2ae696e5daa81a17244bbccdfe88227.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\Projekte\ItsAMe\android\libs\App42MultiPlayerGamingSDK.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2dcbaa0cb6d6c1ed50f9f2c1bbdc0353004e8035">
+        <dex dex="C:\Android\Projekte\ItsAMe\android\build\intermediates\pre-dexed\debug\App42MultiPlayerGamingSDK_5acdcb77bf0afc3e8a14edba812ca56e17bba484.jar" />
     </item>
     <item
         is-multidex="false"

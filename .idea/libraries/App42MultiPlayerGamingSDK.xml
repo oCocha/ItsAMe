@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="App42MultiPlayerGamingSDK">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/core/build/libs/App42MultiPlayerGamingSDK.jar!/" />
+      <root url="jar://$PROJECT_DIR$/android/libs/App42MultiPlayerGamingSDK.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
