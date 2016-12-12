@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "/home/bob/Android/libGDX/ItsAMe/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
         "map": [
             {
                 "to": {
@@ -11,97 +11,7 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 59,
-                        "endColumn": 43,
-                        "endOffset": 98
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 99,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 557
-                },
-                "from": {
-                    "file": "C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 19,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 484
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 43,
-                    "endOffset": 94
-                },
-                "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 59,
-                        "endColumn": 43,
-                        "endOffset": 98
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 99,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 557
-                },
-                "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 19,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 484
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 43,
-                    "endOffset": 94
-                },
-                "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "file": "/home/bob/Android/libGDX/ItsAMe/android/res/values/strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -121,7 +31,7 @@
                     "endOffset": 557
                 },
                 "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "file": "/home/bob/Android/libGDX/ItsAMe/android/res/values/styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -135,7 +45,7 @@
         ]
     },
     {
-        "outputFile": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -146,52 +56,7 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 59,
-                        "endColumn": 43,
-                        "endOffset": 98
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 99,
-                    "endLine": 10,
-                    "endColumn": 12,
-                    "endOffset": 557
-                },
-                "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 19,
-                        "endLine": 9,
-                        "endColumn": 12,
-                        "endOffset": 484
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 43,
-                    "endOffset": 94
-                },
-                "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -211,7 +76,7 @@
                     "endOffset": 557
                 },
                 "from": {
-                    "file": "C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -219,6 +84,186 @@
                         "endLine": 9,
                         "endColumn": 12,
                         "endOffset": 475
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/home/bob/Android/libGDX/ItsAMe/C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 43,
+                    "endOffset": 94
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 43,
+                        "endOffset": 98
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 99,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 557
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 19,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 484
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 43,
+                    "endOffset": 94
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 43,
+                        "endOffset": 95
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 99,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 557
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 17,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 475
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 43,
+                    "endOffset": 94
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 43,
+                        "endOffset": 98
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 99,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 557
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 19,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 484
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 43,
+                    "endOffset": 94
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\strings.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endColumn": 43,
+                        "endOffset": 98
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 99,
+                    "endLine": 10,
+                    "endColumn": 12,
+                    "endOffset": 557
+                },
+                "from": {
+                    "file": "/home/bob/Android/libGDX/ItsAMe/C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\home\\bob\\Android\\libGDX\\ItsAMe\\C:\\Android\\Projekte\\ItsAMe\\android\\res\\values\\styles.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 19,
+                        "endLine": 9,
+                        "endColumn": 12,
+                        "endOffset": 484
                     }
                 }
             }

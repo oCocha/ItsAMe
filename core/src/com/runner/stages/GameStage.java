@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.runner.actors.Background;
 import com.runner.actors.Enemy;
+import com.runner.actors.Opponent;
 import com.runner.actors.Player;
 import com.runner.actors.Projectile;
 import com.runner.actors.Runner;
@@ -53,7 +54,7 @@ public class GameStage extends Stage implements WarpListener, ContactListener {
 
     private World world;
     public Player runner;
-    private Runner opponent;
+    private Opponent opponent;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
@@ -202,8 +203,12 @@ public class GameStage extends Stage implements WarpListener, ContactListener {
 
     /**Create the opponent objects and add them to the game stage*/
     private void setupOpponents() {
+        /**OLD RUNNER CLASS
         opponent = new Runner(WorldUtils.createRunner(world));
         opponent.getUserData().setOpponent();
+        addActor(opponent);
+         */
+        opponent = new Opponent();
         addActor(opponent);
     }
 
