@@ -31,10 +31,15 @@ import com.runner.box2d.GroundUserData;
 import com.runner.box2d.HazardUserData;
 import com.runner.box2d.ProjectileUserData;
 import com.runner.box2d.UserData;
+import com.runner.multiplayer.WarpController;
+import com.runner.multiplayer.WarpListener;
 import com.runner.screens.GameScreen;
 import com.runner.utils.BodyUtils;
 import com.runner.utils.Constants;
 import com.runner.utils.WorldUtils;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
@@ -42,7 +47,7 @@ import java.util.ArrayList;
  * Created by bob on 20.11.16.
  */
 
-public class GameStage extends Stage implements ContactListener {
+public class GameStage extends Stage implements WarpListener, ContactListener {
     private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH / (int)Constants.WORLD_TO_SCREEN;
     private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGTH / (int)Constants.WORLD_TO_SCREEN;
 
@@ -80,6 +85,8 @@ public class GameStage extends Stage implements ContactListener {
 
         setupCamera();
         setupWorld();
+
+        WarpController.getInstance().setListener(this);
     }
 
     /**Initiate the game world*/
@@ -404,5 +411,41 @@ public class GameStage extends Stage implements ContactListener {
         map.dispose();
         renderer.dispose();
         //debugRenderer.dispose();
+    }
+
+    @Override
+    public void onWaitingStarted(String message) {
+
+    }
+
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onGameStarted(String message) {
+
+    }
+
+    @Override
+    public void onGameFinished(int code, boolean isRemote) {
+
+    }
+
+    @Override
+    public void onGameUpdateReceived(String message) {
+        try {
+            JSONObject data = new JSONObject(message);
+            float x = (float)data.getDouble("x");
+            float y = (float)data.getDouble("y");
+            int status = (int)data.getInt("status");
+            //renderer.updateEnemyLocation(x, y, width, height);
+            //System.out.println("GameUpdate --- x: "+x+" y: "+y+" status: "+status+" --- ");
+            opponent.updatePosition(x, y, status);
+        } catch (Exception e) {
+            // exception
+            System.out.print("GameUpdate Error: "+e);
+        }
     }
 }

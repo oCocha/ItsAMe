@@ -140,7 +140,7 @@ public class WarpController {
 		}else if(event.getResult()==WarpResponseResultCode.RESOURCE_NOT_FOUND){// no such room found
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			data.put("result", "");
-			warpClient.createRoom("superjumper", "shephertz", 2, data);
+			warpClient.createRoom("itsame", "bochagames", 2, data);
 		}else{
 			warpClient.disconnect();
 			handleError();

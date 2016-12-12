@@ -159,7 +159,13 @@ public class SearchEnemyScreen extends AbstractScreen implements WarpListener{
 
     @Override
     public void onGameStarted(String message) {
-
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run () {
+                System.out.println("Game started: --- ");
+                game.setScreen(new GameScreen(game, levelName));
+            }
+        });
     }
 
     @Override
@@ -169,6 +175,6 @@ public class SearchEnemyScreen extends AbstractScreen implements WarpListener{
 
     @Override
     public void onGameUpdateReceived(String message) {
-
+        //System.out.println("GameUpdateSearchENemy");
     }
 }

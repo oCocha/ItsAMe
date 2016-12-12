@@ -158,5 +158,8 @@ public class Constants {
     public static final String[] FLYING_WIDE_ENEMY_REGION_NAMES = new String[] {"fly_fly1", "fly_fly2"};
 
     //Multiplayer Constants
-    public static final String TEST_USER_NAME = "testUser1";
+    public static final String TEST_USER_NAME = "testUser2";
+    public static final int MULTIPLAYER_DODGING_CODE = 2;
+    public static final int MULTIPLAYER_JUMPING_CODE = 1;
+    public static final int MULTIPLAYER_RUNNING_CODE = 0;
 }
