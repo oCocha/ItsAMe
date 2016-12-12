@@ -1,0 +1,201 @@
+characterProjectilesAtlas.png
+size: 512, 1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+alienGreen_dodge
+  rotate: false
+  xy: 0, 0
+  size: 69, 71
+  orig: 69, 71
+  offset: 0, 0
+  index: -1
+alienGreen_hit
+  rotate: false
+  xy: 69, 0
+  size: 69, 92
+  orig: 69, 92
+  offset: 0, 0
+  index: -1
+alienGreen_jump
+  rotate: false
+  xy: 138, 0
+  size: 67, 93
+  orig: 67, 93
+  offset: 0, 0
+  index: -1
+alienGreen_run1
+  rotate: false
+  xy: 205, 0
+  size: 68, 93
+  orig: 68, 93
+  offset: 0, 0
+  index: -1
+alienGreen_run2
+  rotate: false
+  xy: 273, 0
+  size: 71, 96
+  orig: 71, 96
+  offset: 0, 0
+  index: -1
+alienRed_dodge
+  rotate: false
+  xy: 344, 0
+  size: 69, 71
+  orig: 69, 71
+  offset: 0, 0
+  index: -1
+alienRed_hit
+  rotate: false
+  xy: 413, 0
+  size: 69, 92
+  orig: 69, 92
+  offset: 0, 0
+  index: -1
+alienRed_jump
+  rotate: false
+  xy: 0, 96
+  size: 67, 93
+  orig: 67, 93
+  offset: 0, 0
+  index: -1
+alienRed_run1
+  rotate: false
+  xy: 67, 96
+  size: 68, 93
+  orig: 68, 93
+  offset: 0, 0
+  index: -1
+alienRed_run2
+  rotate: false
+  xy: 135, 96
+  size: 71, 96
+  orig: 71, 96
+  offset: 0, 0
+  index: -1
+barnacle_bite1
+  rotate: false
+  xy: 206, 96
+  size: 51, 57
+  orig: 51, 57
+  offset: 0, 0
+  index: -1
+barnacle_bite2
+  rotate: false
+  xy: 257, 96
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+bee_fly1
+  rotate: false
+  xy: 308, 96
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+bee_fly2
+  rotate: false
+  xy: 364, 96
+  size: 61, 42
+  orig: 61, 42
+  offset: 0, 0
+  index: -1
+bomb_black1
+  rotate: false
+  xy: 425, 96
+  size: 64, 83
+  orig: 64, 83
+  offset: 0, 0
+  index: -1
+bomb_black2
+  rotate: false
+  xy: 0, 192
+  size: 64, 83
+  orig: 64, 83
+  offset: 0, 0
+  index: -1
+characters
+  rotate: false
+  xy: 64, 192
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+fly_fly1
+  rotate: false
+  xy: 320, 192
+  size: 57, 44
+  orig: 57, 44
+  offset: 0, 0
+  index: -1
+fly_fly2
+  rotate: false
+  xy: 377, 192
+  size: 65, 39
+  orig: 65, 39
+  offset: 0, 0
+  index: -1
+ladyBug_walk1
+  rotate: false
+  xy: 442, 192
+  size: 61, 34
+  orig: 61, 34
+  offset: 0, 0
+  index: -1
+ladyBug_walk2
+  rotate: false
+  xy: 0, 704
+  size: 59, 43
+  orig: 59, 43
+  offset: 0, 0
+  index: -1
+mine
+  rotate: false
+  xy: 59, 704
+  size: 64, 26
+  orig: 64, 26
+  offset: 0, 0
+  index: -1
+rocket_green1
+  rotate: false
+  xy: 123, 704
+  size: 64, 27
+  orig: 64, 27
+  offset: 0, 0
+  index: -1
+rocket_green2
+  rotate: false
+  xy: 187, 704
+  size: 64, 27
+  orig: 64, 27
+  offset: 0, 0
+  index: -1
+spider_walk1
+  rotate: false
+  xy: 251, 704
+  size: 72, 51
+  orig: 72, 51
+  offset: 0, 0
+  index: -1
+spider_walk2
+  rotate: false
+  xy: 323, 704
+  size: 77, 54
+  orig: 77, 54
+  offset: 0, 0
+  index: -1
+worm_walk1
+  rotate: false
+  xy: 400, 704
+  size: 63, 23
+  orig: 63, 23
+  offset: 0, 0
+  index: -1
+worm_walk2
+  rotate: false
+  xy: 0, 758
+  size: 64, 23
+  orig: 64, 23
+  offset: 0, 0
+  index: -1

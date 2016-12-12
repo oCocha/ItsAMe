@@ -22,16 +22,16 @@ import org.json.JSONObject;
 
 public class Runner extends GameActor {
 
-    private boolean jumping;
-    private boolean dodging;
-    private boolean hit;
+    public boolean jumping;
+    public boolean dodging;
+    public boolean hit;
     private boolean readyToJump = true;
-    private Animation runningAnimation;
-    private TextureRegion jumpingTexture;
-    private TextureRegion dodgingTexture;
-    private TextureRegion hitTexture;
-    private float stateTime;
-    private boolean facingLeft = false;
+    public Animation runningAnimation;
+    public TextureRegion jumpingTexture;
+    public TextureRegion dodgingTexture;
+    public TextureRegion hitTexture;
+    public float stateTime;
+    public boolean facingLeft = false;
     private float accumulator = 0f;
 
     private Vector2 velocity;
@@ -65,30 +65,13 @@ public class Runner extends GameActor {
         super.draw(batch, parentAlpha);
         if(dodging){
             batch.draw(dodgingTexture, screenRectangle.x, screenRectangle.y + screenRectangle.height / 4, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 6 / 4);
-            sendLocation(screenRectangle.x, screenRectangle.y, Constants.MULTIPLAYER_DODGING_CODE);
         }else if(hit){
             batch.draw(hitTexture, screenRectangle.x, screenRectangle.y, facingLeft ? -screenRectangle.width * 0.5f : screenRectangle.width * 0.5f, screenRectangle.height * 0.5f, screenRectangle.width, screenRectangle.height, 1f, 1f, (float)Math.toDegrees(body.getAngle()));
         }else if(jumping){
             batch.draw(jumpingTexture, facingLeft ? screenRectangle.x + screenRectangle.width * 3 / 2 : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
-            sendLocation(screenRectangle.x, screenRectangle.y, Constants.MULTIPLAYER_JUMPING_CODE);
         }else{
             stateTime += Gdx.graphics.getDeltaTime();
             batch.draw(runningAnimation.getKeyFrame(stateTime, true), facingLeft ? screenRectangle.x + screenRectangle.width * 3 / 2 : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
-            sendLocation(screenRectangle.x, screenRectangle.y, Constants.MULTIPLAYER_RUNNING_CODE);
-        }
-    }
-
-    private void sendLocation(float x, float y, int status) {
-        try {
-            JSONObject data = new JSONObject();
-            data.put("x", x);
-            data.put("y", y);
-            data.put("status", status);
-            WarpController.getInstance().sendGameUpdate(data.toString());
-            //System.out.print("SendLocation success: x: "+x+" y: "+y+" status: "+status);
-        } catch (Exception e) {
-            // exception in sendLocation
-            System.out.print("SendLoccatipn error: "+e);
         }
     }
 
@@ -209,7 +192,8 @@ public class Runner extends GameActor {
     }
 
     public void updatePosition(float x, float y, int status) {
-        screenRectangle.x = x;
-        screenRectangle.y = y;
+        //screenRectangle.x = x;
+        //screenRectangle.y = y;
+        setPosition(new Vector2(x, y));
     }
 }

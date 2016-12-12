@@ -442,7 +442,8 @@ public class GameStage extends Stage implements WarpListener, ContactListener {
             int status = (int)data.getInt("status");
             //renderer.updateEnemyLocation(x, y, width, height);
             //System.out.println("GameUpdate --- x: "+x+" y: "+y+" status: "+status+" --- ");
-            opponent.updatePosition(x, y, status);
+            if(!world.isLocked())
+                opponent.updatePosition(x, y, status);
         } catch (Exception e) {
             // exception
             System.out.print("GameUpdate Error: "+e);
