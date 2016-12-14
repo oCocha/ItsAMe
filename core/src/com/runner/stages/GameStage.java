@@ -1,5 +1,6 @@
 package com.runner.stages;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -24,6 +25,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.runner.actors.Background;
 import com.runner.actors.Enemy;
+import com.runner.actors.GameActor;
 import com.runner.actors.Opponent;
 import com.runner.actors.Player;
 import com.runner.actors.Projectile;
@@ -42,6 +44,7 @@ import com.runner.utils.WorldUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -54,7 +57,7 @@ public class GameStage extends Stage implements ContactListener {
 
     private World world;
     public Player runner;
-    private Opponent opponent;
+    private Runner opponent;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
@@ -69,6 +72,8 @@ public class GameStage extends Stage implements ContactListener {
 
     private Box2DDebugRenderer debugRenderer;
 
+    private ArrayList<GameActor> runnerList = new ArrayList<GameActor>();
+    private ArrayList<ArrayList<String>> finishList = new ArrayList<ArrayList<String>>();
     private ArrayList<Body> destroyList = new ArrayList<Body>();
     private ArrayList<Vector2> explodeList = new ArrayList<Vector2>();
     private boolean noEnemy = true;
@@ -96,7 +101,7 @@ public class GameStage extends Stage implements ContactListener {
         setupMap();
         setupBackGround();
         setUpRunner();
-        setupOpponents();
+        //setupOpponents();
         setupTextures();
         //createEnemy(Constants.ENEMY_X);
     }
@@ -197,17 +202,19 @@ public class GameStage extends Stage implements ContactListener {
     private void setUpRunner() {
         runner = new Player(WorldUtils.createRunner(world));
         addActor(runner);
+        runnerList.add(runner);
     }
 
     /**Create the opponent objects and add them to the game stage*/
     private void setupOpponents() {
-        /**OLD RUNNER CLASS
         opponent = new Runner(WorldUtils.createRunner(world));
         opponent.getUserData().setOpponent();
         addActor(opponent);
-         */
+        runnerList.add(opponent);
+        /**MULTIPLAYER
         opponent = new Opponent();
         addActor(opponent);
+         */
     }
 
     /**Create a new camera and set its position to the middle of the stage*/
@@ -281,6 +288,22 @@ public class GameStage extends Stage implements ContactListener {
         /**Restart the game if the runner/player was hit*/
         if(runner.isHit() == true)
             GameScreen.restartGame();
+
+        /**Save the time when a runner reaches the goal line*/
+        for(int i = 0, j = runnerList.size(); i < j; i++){
+            if(BodyUtils.bodyFinished(runnerList.get(i))){
+                finishList.add(new ArrayList<String>());
+                finishList.get(finishList.size()-1).add((runnerList.get(i).getActorName()));
+                finishList.get(finishList.size()-1).add((GameScreen.getFinishTime()));
+                runnerList.remove(i);
+                break;
+            }
+        }
+
+        /**Change to score screen when every runner has finished*/
+        if(runnerList.size() == 0){
+            GameScreen.gameFinished(finishList);
+        }
     }
 
     /**Draw an explosion at the given parameters*/

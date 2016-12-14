@@ -26,7 +26,7 @@ public class Projectile extends GameActor {
     private float accumulator;
 
     public Projectile(Body body, boolean facingLeft, ProjectileUserData projectileUserData){
-        super(body);
+        super(body, "PLACEHOLDER_PROECTILE_NAME");
 
         this.projectileUserData = projectileUserData;
         TextureAtlas textureAtlas = new TextureAtlas(Constants.PROJECTILES_ATLAS_PATH);

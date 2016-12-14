@@ -14,13 +14,15 @@ import com.runner.utils.Constants;
 public abstract class GameActor extends Actor {
 
     protected Body body;
+    protected String actorName;
     protected UserData userData;
     protected Rectangle screenRectangle;
 
     private Vector2 velocity;
 
-    public GameActor(Body body){
+    public GameActor(Body body, String actorName){
         this.body = body;
+        this.actorName = actorName;
         this.userData = (UserData) body.getUserData();
         screenRectangle = new Rectangle();
     }
@@ -56,6 +58,10 @@ public abstract class GameActor extends Actor {
 
     public void setPosition(Vector2 position){
         body.setTransform(position,body.getAngle());
+    }
+
+    public String getActorName(){
+        return actorName;
     }
 
     public void resetVelocity(){

@@ -21,7 +21,7 @@ public class Ground extends GameActor {
     private int speed = 10;
 
     public Ground(Body body) {
-        super(body);
+        super(body, "PLACEHOLDER_GROUND_NAME");
         textureRegion = new TextureRegion(new Texture(Gdx.files.internal(Constants.GROUND_IMAGE_PATH)));
         textureRegionBounds1 = new Rectangle(0 - getUserData().getWidth() / 2, 0, getUserData().getWidth(),
                 getUserData().getHeight());

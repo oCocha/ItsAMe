@@ -10,6 +10,8 @@ import com.runner.stages.GameStage;
 import com.runner.stages.HudStage;
 import com.runner.utils.Constants;
 
+import java.util.ArrayList;
+
 /**
  * Created by bob on 20.11.16.
  */
@@ -38,8 +40,16 @@ public class GameScreen implements Screen {
         hudStage.act(delta);
     }
 
+    public static String getFinishTime(){
+        return hudStage.getFinishTime();
+    }
+
     static public void restartGame() {
         game.setScreen(new GameOverScreen(game));
+    }
+
+    public static void gameFinished(ArrayList finishList){
+        game.setScreen(new FinishScreen(game, finishList));
     }
 
     @Override

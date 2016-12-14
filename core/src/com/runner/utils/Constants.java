@@ -15,6 +15,9 @@ public class Constants {
     public static final float WORLD_TO_SCREEN = 32.0f;
 
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -10);
+    public static final float LEVEL_1_END_X = 100;
+    public static final float LEVEL_2_END_X = 20;
+    public static final float LEVEL_3_END_X = 100;
 
     public static final int COLLISION_PLAYER_BITS = 2;
     public static final int COLLISION_WALL_BITS = 4;

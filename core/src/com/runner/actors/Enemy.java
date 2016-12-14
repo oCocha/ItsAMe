@@ -23,7 +23,7 @@ public class Enemy extends GameActor {
 
     public Enemy(Body body){
 
-        super(body);
+        super(body, "PLACEHOLDER_EBENY_NAME");
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
         TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().length];
         for(int i = 0; i < getUserData().getTextureRegions().length; i++){

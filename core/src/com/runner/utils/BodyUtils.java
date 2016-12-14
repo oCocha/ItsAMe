@@ -1,6 +1,7 @@
 package com.runner.utils;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.runner.actors.GameActor;
 import com.runner.box2d.UserData;
 import com.runner.enums.UserDataType;
 
@@ -58,5 +59,11 @@ public class BodyUtils {
     public static boolean bodyIsOpponent(Body body) {
         UserData userData = (UserData) body.getUserData();
         return userData != null && userData.getUserDataType() == UserDataType.OPPONENT;
+    }
+
+    public static boolean bodyFinished(GameActor gameActor) {
+        if(gameActor.getPosition().x > Constants.LEVEL_2_END_X)
+            return true;
+        else return false;
     }
 }

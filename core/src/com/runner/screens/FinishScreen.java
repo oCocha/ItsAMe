@@ -2,32 +2,33 @@ package com.runner.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.runner.Runner;
 import com.runner.utils.Constants;
+
+import java.util.ArrayList;
 
 /**
  * Created by bob on 22.11.16.
  */
 
-public class MainMenu extends AbstractScreen {
+public class FinishScreen extends AbstractScreen {
 
     final Game game;
     protected Stage stage;
@@ -42,9 +43,15 @@ public class MainMenu extends AbstractScreen {
     OrthographicCamera camera;
     float time = 0;
 
-    public MainMenu(Game game){
+    Label nameLabel;
+    Label timeLabel;
+
+    ArrayList<ArrayList<String>> finishList = new ArrayList<ArrayList<String>>();
+
+    public FinishScreen(Game game, ArrayList finishList){
         super(game);
         this.game = game;
+        this.finishList = finishList;
 
         atlas = new TextureAtlas(Constants.UI_ATLAS_PATH);
         skin = new Skin(Gdx.files.internal(Constants.UI_SKIN_PATH), atlas);
@@ -78,20 +85,25 @@ public class MainMenu extends AbstractScreen {
         //Set alignment of contents in the table.
         mainTable.top();
 
+        //Create finish actor name and time labels
+        for(int i = 0, j = finishList.size(); i < j; i++){
+            nameLabel = new Label(finishList.get(i).get(0), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+            timeLabel = new Label(finishList.get(i).get(1), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        }
+
         //Create buttons
-        TextButton singlePlayButton = new TextButton("Singleplayer", skin);
-        TextButton multiPlayButton = new TextButton("Multiplayer", skin);
-        TextButton optionsButton = new TextButton("Options", skin);
+        TextButton replayButton = new TextButton("Play again", skin);
+        TextButton menuButton = new TextButton("Main menu", skin);
         TextButton exitButton = new TextButton("Exit", skin);
 
         //Add listeners to buttons
-        singlePlayButton.addListener(new ClickListener(){
+        replayButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new LevelSelect(game));
             }
         });
-        optionsButton.addListener(new ClickListener(){
+        menuButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new OptionsScreen(game));
@@ -104,11 +116,13 @@ public class MainMenu extends AbstractScreen {
             }
         });
 
+        //Add labels to table
+        mainTable.add(nameLabel).pad(20);
+        mainTable.add(timeLabel).pad(20);
         //Add buttons to table
-        mainTable.add(singlePlayButton).pad(20);
-        mainTable.add(multiPlayButton).pad(20);
         mainTable.row();
-        mainTable.add(optionsButton).pad(20);
+        mainTable.add(replayButton).pad(20);
+        mainTable.add(menuButton).pad(20);
         mainTable.add(exitButton).pad(20);
 
         //Add table to stage

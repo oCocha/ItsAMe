@@ -75,6 +75,10 @@ public class HudStage extends Stage {
         setupUI();
     }
 
+    public String getFinishTime(){
+        return timeLabel.getText().toString();
+    }
+
     //Setup a table containing some labels which display game data
     private void setupTable() {
         Table table = new Table();

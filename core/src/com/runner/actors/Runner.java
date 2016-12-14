@@ -42,7 +42,7 @@ public class Runner extends GameActor {
 
     public Runner(Body body/*, TiledMapTileLayer collisionLayer*/){
 
-        super(body);
+        super(body, "PLACEHOLDER_RUNNER_NAME");
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
         TextureRegion[] runningFrames = new TextureRegion[Constants.RUNNER_RUNNING_REGION_NAMES.length];
         for(int i = 0; i < Constants.RUNNER_RUNNING_REGION_NAMES.length; i++){

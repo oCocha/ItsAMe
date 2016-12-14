@@ -15,6 +15,6 @@ public class Runner extends Game {
 	
 	@Override
 	public void create () {
-        setScreen(new LevelSelect(this));
+        setScreen(new GameScreen(this, "level 2"));
 	}
 }
