@@ -32,7 +32,7 @@ import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
  * Created by bob on 22.11.16.
  */
 
-public class SearchEnemyScreen extends AbstractScreen implements WarpListener{
+public class SearchEnemyScreen extends AbstractScreen{
 
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -70,8 +70,6 @@ public class SearchEnemyScreen extends AbstractScreen implements WarpListener{
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
-        WarpController.getInstance().setListener(this);
     }
 
     @Override
@@ -97,12 +95,11 @@ public class SearchEnemyScreen extends AbstractScreen implements WarpListener{
                 /**OHNE MULTIPLAYER
                  game.setScreen(new IntroScreen(game, levelLabel.getText().toString()));
                  */
-                System.out.print("CLICK");
-                WarpController.getInstance().startApp(Constants.TEST_USER_NAME);
+                game.setScreen(new IntroScreen(game, levelName));
             }
         });
         //Add buttons to table
-        mainTable.add(searchButton).pad(Constants.LEVEL_SELECT_PADDING_TOP, Constants.LEVEL_SELECT_PADDING_SIDE, Constants.LEVEL_SELECT_PADDING_BOT, Constants.LEVEL_SELECT_PADDING_SIDE);;
+        mainTable.add(searchButton).pad(Constants.LEVEL_SELECT_PADDING_TOP, Constants.LEVEL_SELECT_PADDING_SIDE, Constants.LEVEL_SELECT_PADDING_BOT, Constants.LEVEL_SELECT_PADDING_SIDE);
         mainTable.add(statusLabel);
 
         return mainTable;
@@ -145,36 +142,5 @@ public class SearchEnemyScreen extends AbstractScreen implements WarpListener{
         Gdx.app.debug("Cubify", "dispose intro");
         //batch.dispose();
         //intro.getTexture().dispose();
-    }
-
-    @Override
-    public void onWaitingStarted(String message) {
-
-    }
-
-    @Override
-    public void onError(String message) {
-
-    }
-
-    @Override
-    public void onGameStarted(String message) {
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run () {
-                System.out.println("Game started: --- ");
-                game.setScreen(new GameScreen(game, levelName));
-            }
-        });
-    }
-
-    @Override
-    public void onGameFinished(int code, boolean isRemote) {
-
-    }
-
-    @Override
-    public void onGameUpdateReceived(String message) {
-        //System.out.println("GameUpdateSearchENemy");
     }
 }

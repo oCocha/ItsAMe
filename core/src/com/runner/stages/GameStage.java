@@ -48,7 +48,7 @@ import java.util.ArrayList;
  * Created by bob on 20.11.16.
  */
 
-public class GameStage extends Stage implements WarpListener, ContactListener {
+public class GameStage extends Stage implements ContactListener {
     private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH / (int)Constants.WORLD_TO_SCREEN;
     private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGTH / (int)Constants.WORLD_TO_SCREEN;
 
@@ -86,8 +86,6 @@ public class GameStage extends Stage implements WarpListener, ContactListener {
 
         setupCamera();
         setupWorld();
-
-        WarpController.getInstance().setListener(this);
     }
 
     /**Initiate the game world*/
@@ -416,42 +414,5 @@ public class GameStage extends Stage implements WarpListener, ContactListener {
         map.dispose();
         renderer.dispose();
         //debugRenderer.dispose();
-    }
-
-    @Override
-    public void onWaitingStarted(String message) {
-
-    }
-
-    @Override
-    public void onError(String message) {
-
-    }
-
-    @Override
-    public void onGameStarted(String message) {
-
-    }
-
-    @Override
-    public void onGameFinished(int code, boolean isRemote) {
-
-    }
-
-    @Override
-    public void onGameUpdateReceived(String message) {
-        try {
-            JSONObject data = new JSONObject(message);
-            float x = (float)data.getDouble("x");
-            float y = (float)data.getDouble("y");
-            int status = (int)data.getInt("status");
-            //renderer.updateEnemyLocation(x, y, width, height);
-            //System.out.println("GameUpdate --- x: "+x+" y: "+y+" status: "+status+" --- ");
-            if(!world.isLocked())
-                opponent.updatePosition(x, y, status);
-        } catch (Exception e) {
-            // exception
-            System.out.print("GameUpdate Error: "+e);
-        }
     }
 }

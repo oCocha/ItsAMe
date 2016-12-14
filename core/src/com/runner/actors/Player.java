@@ -39,16 +39,13 @@ public class Player extends Runner {
         super.draw(batch, parentAlpha);
         if(dodging){
             batch.draw(dodgingTexture, screenRectangle.x, screenRectangle.y + screenRectangle.height / 4, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 6 / 4);
-            sendLocation(screenRectangle.x, screenRectangle.y, Constants.MULTIPLAYER_DODGING_CODE);
         }else if(hit){
             batch.draw(hitTexture, screenRectangle.x, screenRectangle.y, facingLeft ? -screenRectangle.width * 0.5f : screenRectangle.width * 0.5f, screenRectangle.height * 0.5f, screenRectangle.width, screenRectangle.height, 1f, 1f, (float)Math.toDegrees(body.getAngle()));
         }else if(jumping){
             batch.draw(jumpingTexture, facingLeft ? screenRectangle.x + screenRectangle.width * 3 / 2 : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
-            sendLocation(screenRectangle.x, screenRectangle.y, Constants.MULTIPLAYER_JUMPING_CODE);
         }else{
             stateTime += Gdx.graphics.getDeltaTime();
             batch.draw(runningAnimation.getKeyFrame(stateTime, true), facingLeft ? screenRectangle.x + screenRectangle.width * 3 / 2 : screenRectangle.x - screenRectangle.width / 2, screenRectangle.y - screenRectangle.height / 2, facingLeft ? -screenRectangle.width * 2 : screenRectangle.width * 2, screenRectangle.height * 2);
-            sendLocation(screenRectangle.x, screenRectangle.y, Constants.MULTIPLAYER_RUNNING_CODE);
         }
     }
 
